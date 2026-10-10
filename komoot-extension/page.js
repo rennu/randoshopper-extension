@@ -444,11 +444,11 @@
   function buildPanel() {
     if (panel || !document.body) return;
     panel = document.createElement("div");
-    panel.style.cssText = "box-sizing:border-box;width:100%;padding:12px 16px;color:inherit;font-size:13px;line-height:1.4;";
+    panel.style.cssText = "box-sizing:border-box;width:100%;padding:12px 16px;color:inherit;font-family:inherit;font-size:14px;line-height:1.4;";
     const sep = document.createElement("hr");
     sep.style.cssText = "margin:0 0 8px;border:0;border-top:1px solid rgba(128,128,128,.35);";
     const header = document.createElement("div");
-    header.style.cssText = "padding:4px 0;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;user-select:none;";
+    header.style.cssText = "padding:4px 0;font-weight:500;font-size:16px;cursor:pointer;display:flex;justify-content:space-between;user-select:none;";
     const arrow = document.createElement("span");
     arrow.textContent = "▾";
     const title = document.createElement("span");
@@ -471,19 +471,19 @@
     });
 
     statusEl = document.createElement("div");
-    statusEl.style.cssText = "color:#555;margin-bottom:6px;font-size:12px;";
+    statusEl.style.cssText = "color:#7a6c5d;margin-bottom:6px;font-size:13px;";
     statusEl.textContent = "0 places found";
 
     const row = document.createElement("div");
     row.style.cssText = "display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap;";
     const btn = document.createElement("button");
     btn.textContent = "Search route";
-    btn.style.cssText = "box-sizing:border-box;height:28px;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    btn.style.cssText = "box-sizing:border-box;height:28px;font:inherit;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
     btn.addEventListener("click", () => { search(); });
     const pad = document.createElement("input");
     pad.type = "number"; pad.min = 100; pad.max = 10000; pad.step = 100; pad.value = state.padding;
     pad.title = "Search distance from route (m)";
-    pad.style.cssText = "box-sizing:border-box;height:28px;width:64px;padding:0 6px;line-height:1;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    pad.style.cssText = "box-sizing:border-box;height:28px;font:inherit;width:64px;padding:0 6px;line-height:1;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
     let padTimer;
     pad.addEventListener("input", () => {
       clearTimeout(padTimer);
@@ -502,7 +502,7 @@
     const m = document.createElement("span"); m.textContent = "m";
     const hideBtn = document.createElement("button");
     hideBtn.textContent = "Hide all";
-    hideBtn.style.cssText = "box-sizing:border-box;height:28px;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    hideBtn.style.cssText = "box-sizing:border-box;height:28px;font:inherit;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
     hideBtn.addEventListener("click", () => {
       state.hidden = !state.hidden;
       hideBtn.textContent = state.hidden ? "Show all" : "Hide all";
@@ -521,7 +521,7 @@
 
     const filtersTitle = document.createElement("div");
     filtersTitle.textContent = "Filters";
-    filtersTitle.style.cssText = "font-weight:600;margin:8px 0 4px;";
+    filtersTitle.style.cssText = "font-weight:500;font-size:16px;margin:8px 0 4px;";
     const list = document.createElement("div");
     CATEGORIES.forEach((c) => {
       const lab = document.createElement("label");
