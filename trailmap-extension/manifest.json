@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Trailshopper",
+  "version": "1.0.0",
+  "icons": { "16": "icon16.png", "32": "icon32.png", "48": "icon48.png", "128": "icon128.png" },
+  "description": "Shows shops, food, water, shelters and other services along the route in the Trailmap route planner.",
+  "host_permissions": ["https://randoshopper.sloth.fi/*"],
+  "web_accessible_resources": [{ "resources": ["logo.svg"], "matches": ["https://web.trailmap.fi/*"] }],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_icon": { "16": "icon16.png", "32": "icon32.png" } },
+  "content_scripts": [
+    {
+      "matches": ["https://web.trailmap.fi/*"],
+      "js": ["page.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://web.trailmap.fi/*"],
+      "js": ["relay.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

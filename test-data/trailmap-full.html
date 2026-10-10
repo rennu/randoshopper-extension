@@ -1,0 +1,3926 @@
+<html
+  lang="en"
+  class="__className_b33009"
+  data-sentry-element="Html"
+  data-sentry-component="MyDocument"
+  data-sentry-source-file="_document.tsx"
+>
+  <head data-sentry-element="Head" data-sentry-source-file="_document.tsx">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <meta
+      name="twitter:url"
+      content="https://web.trailmap.fi"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      name="twitter:image"
+      content="/images/trailmap-logo-with-map.jpg"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:type"
+      content="website"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:site_name"
+      content="Trailmap"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:url"
+      content="https://web.trailmap.fi"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:image"
+      content="https://web.trailmap.fi/images/trailmap-logo-with-map.jpg"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <title>Trailmap - Find new trails</title>
+    <link
+      rel="preload"
+      href="/_next/static/media/trailmap-logo.0c9a4a8c.png"
+      as="image"
+      fetchpriority="high"
+    />
+    <meta
+      name="description"
+      content="A service for mountain bikers, trail runners and outdoor enthusiasts looking for new trails and scenery for their outings."
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      name="twitter:title"
+      content="Trailmap - Find new trails"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      name="twitter:description"
+      content="A service for mountain bikers, trail runners and outdoor enthusiasts looking for new trails and scenery for their outings."
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:title"
+      content="Trailmap - Find new trails"
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta
+      property="og:description"
+      content="A service for mountain bikers, trail runners and outdoor enthusiasts looking for new trails and scenery for their outings."
+      data-sentry-element="meta"
+      data-sentry-source-file="_app.tsx"
+    />
+    <meta name="next-head-count" content="19" />
+    <meta
+      name="theme-color"
+      content="#2e7d32"
+      data-sentry-element="meta"
+      data-sentry-source-file="_document.tsx"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script
+      defer=""
+      data-domain="trailmap.fi"
+      src="https://plausible.io/js/script.js"
+    ></script>
+    <meta
+      name="emotion-insertion-point"
+      content=""
+      data-sentry-element="meta"
+      data-sentry-source-file="_document.tsx"
+    />
+    <style data-emotion="mui-style-global" data-s="">
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-sizing: border-box;
+        -webkit-text-size-adjust: 100%;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      strong,
+      b {
+        font-weight: 700;
+      }
+      body {
+        margin: 0;
+        color: rgba(0, 0, 0, 0.87);
+        font-family:
+          "__Roboto_b33009", "__Roboto_Fallback_b33009", Helvetica, Arial,
+          sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.5;
+        background-color: #fff;
+      }
+      @media print {
+        body {
+          background-color: #fff;
+        }
+      }
+      body::backdrop {
+        background-color: #fff;
+      }
+    </style>
+    <style data-emotion="mui-style-global" data-s=""></style>
+    <style data-emotion="mui-style-global" data-s=""></style>
+    <style
+      data-emotion="mui-style 1t8ouv2 e2dv38 1ekb41w 1gwul5j 5hd5ww mfiwgy 1muhyso 1c3u61v yh5ptb 1n4a93h vubbuv 1cmprjc 14mag4w a7edh1 dwpknh ait9ab 1ogduin 1yfp6pq 1h9migj 1wxaqej 1ggxpvf 8yzpf7 13o7eu2 14891ef q0tk53"
+      data-s=""
+    >
+      .mui-style-1t8ouv2 {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) 230px;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .mui-style-e2dv38 {
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.87);
+        -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        box-shadow:
+          0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+          0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+          0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        position: fixed;
+        z-index: 1100;
+        top: 0;
+        left: auto;
+        right: 0;
+        background-color: #2e7d32;
+        color: #fff;
+        background-color: white;
+        height: 56.5px;
+        z-index: 1201;
+      }
+      @media print {
+        .mui-style-e2dv38 {
+          position: absolute;
+        }
+      }
+      .mui-style-1ekb41w {
+        width: 100%;
+        margin-left: auto;
+        box-sizing: border-box;
+        margin-right: auto;
+        display: block;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      @media (min-width: 600px) {
+        .mui-style-1ekb41w {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+      }
+      @media (min-width: 1536px) {
+        .mui-style-1ekb41w {
+          max-width: 1536px;
+        }
+      }
+      .mui-style-1gwul5j {
+        position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        min-height: 56px;
+        min-height: 56.5px;
+        padding-top: 0px;
+      }
+      @media (min-width: 0px) {
+        @media (orientation: landscape) {
+          .mui-style-1gwul5j {
+            min-height: 48px;
+          }
+        }
+      }
+      @media (min-width: 600px) {
+        .mui-style-1gwul5j {
+          min-height: 64px;
+        }
+      }
+      .mui-style-5hd5ww {
+        margin-top: -4px;
+        padding-top: 0px;
+        position: relative;
+        width: 166px;
+        height: 32px;
+        cursor: pointer;
+      }
+      @media (min-width: 0px) {
+        .mui-style-5hd5ww {
+          display: none;
+        }
+      }
+      @media (min-width: 600px) {
+        .mui-style-5hd5ww {
+          display: block;
+        }
+      }
+      @media (min-width: 900px) {
+        .mui-style-5hd5ww {
+          margin-right: 120px;
+        }
+      }
+      .mui-style-5hd5ww:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      @media (min-width: 600px) and (max-width: 679px) {
+        .mui-style-5hd5ww {
+          margin-right: 12px;
+        }
+      }
+      @media (min-width: 680px) and (max-width: 899px) {
+        .mui-style-5hd5ww {
+          margin-right: 60px;
+        }
+      }
+      .mui-style-mfiwgy {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+      }
+      @media (min-width: 0px) {
+        .mui-style-mfiwgy {
+          display: none;
+        }
+      }
+      @media (min-width: 600px) {
+        .mui-style-mfiwgy {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+        }
+      }
+      .mui-style-1muhyso {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        font-size: 1.5rem;
+        padding: 8px;
+        border-radius: 50%;
+        overflow: visible;
+        color: rgba(0, 0, 0, 0.54);
+        -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)
+          0ms;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        margin-top: -4px;
+      }
+      .mui-style-1muhyso::-moz-focus-inner {
+        border-style: none;
+      }
+      .mui-style-1muhyso.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+      @media print {
+        .mui-style-1muhyso {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+      .mui-style-1muhyso:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      @media (hover: none) {
+        .mui-style-1muhyso:hover {
+          background-color: transparent;
+        }
+      }
+      .mui-style-1muhyso.Mui-disabled {
+        background-color: transparent;
+        color: rgba(0, 0, 0, 0.26);
+      }
+      .mui-style-1c3u61v {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentColor;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+        font-size: 28px;
+      }
+      .mui-style-yh5ptb {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        font-family:
+          "__Roboto_b33009", "__Roboto_Fallback_b33009", Helvetica, Arial,
+          sans-serif;
+        font-weight: 500;
+        font-size: 0.875rem;
+        line-height: 1.75;
+        text-transform: uppercase;
+        min-width: 64px;
+        padding: 6px 8px;
+        border-radius: 4px;
+        -webkit-transition:
+          background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition:
+          background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        color: #2e7d32;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        color: black;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      .mui-style-yh5ptb::-moz-focus-inner {
+        border-style: none;
+      }
+      .mui-style-yh5ptb.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+      @media print {
+        .mui-style-yh5ptb {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+      .mui-style-yh5ptb:hover {
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        background-color: rgba(46, 125, 50, 0.04);
+      }
+      @media (hover: none) {
+        .mui-style-yh5ptb:hover {
+          background-color: transparent;
+        }
+      }
+      .mui-style-yh5ptb.Mui-disabled {
+        color: rgba(0, 0, 0, 0.26);
+      }
+      .mui-style-yh5ptb .MuiButton-endIcon {
+        margin-left: -1px;
+      }
+      .mui-style-1n4a93h {
+        display: inherit;
+        margin-right: -4px;
+        margin-left: 8px;
+      }
+      .mui-style-1n4a93h > *:nth-of-type(1) {
+        font-size: 20px;
+      }
+      .mui-style-vubbuv {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentColor;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+      }
+      .mui-style-1cmprjc {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        font-family:
+          "__Roboto_b33009", "__Roboto_Fallback_b33009", Helvetica, Arial,
+          sans-serif;
+        font-weight: 500;
+        font-size: 0.875rem;
+        line-height: 1.75;
+        text-transform: uppercase;
+        min-width: 64px;
+        padding: 6px 8px;
+        border-radius: 4px;
+        -webkit-transition:
+          background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition:
+          background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        color: #2e7d32;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        color: black;
+        display: block;
+      }
+      .mui-style-1cmprjc::-moz-focus-inner {
+        border-style: none;
+      }
+      .mui-style-1cmprjc.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+      @media print {
+        .mui-style-1cmprjc {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+      .mui-style-1cmprjc:hover {
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        background-color: rgba(46, 125, 50, 0.04);
+      }
+      @media (hover: none) {
+        .mui-style-1cmprjc:hover {
+          background-color: transparent;
+        }
+      }
+      .mui-style-1cmprjc.Mui-disabled {
+        color: rgba(0, 0, 0, 0.26);
+      }
+      .mui-style-14mag4w {
+        -webkit-box-flex: 0;
+        -webkit-flex-grow: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0;
+        margin-right: 24px;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      @media (min-width: 0px) {
+        .mui-style-14mag4w {
+          display: none;
+        }
+      }
+      @media (min-width: 600px) {
+        .mui-style-14mag4w {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+        }
+      }
+      .mui-style-a7edh1 {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        font-size: 1.5rem;
+        padding: 8px;
+        border-radius: 50%;
+        overflow: visible;
+        color: rgba(0, 0, 0, 0.54);
+        -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)
+          0ms;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        color: black;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+      .mui-style-a7edh1::-moz-focus-inner {
+        border-style: none;
+      }
+      .mui-style-a7edh1.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+      @media print {
+        .mui-style-a7edh1 {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+      .mui-style-a7edh1:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      @media (hover: none) {
+        .mui-style-a7edh1:hover {
+          background-color: transparent;
+        }
+      }
+      .mui-style-a7edh1.Mui-disabled {
+        background-color: transparent;
+        color: rgba(0, 0, 0, 0.26);
+      }
+      .mui-style-dwpknh {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentColor;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+        font-size: 24px;
+      }
+      .mui-style-ait9ab {
+        margin: 0;
+        font-family:
+          "__Roboto_b33009", "__Roboto_Fallback_b33009", Helvetica, Arial,
+          sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-left: 2px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .mui-style-1ogduin {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentColor;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+        font-size: 18px;
+        margin-left: -2px;
+      }
+      .mui-style-1yfp6pq {
+        position: fixed;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        -webkit-tap-highlight-color: transparent;
+        color: #555;
+        z-index: 1201;
+      }
+      .mui-style-1yfp6pq[style*="opacity: 0"] {
+        pointer-events: none;
+      }
+      .mui-style-1yfp6pq:has(> div.MuiBackdrop-root[style*="opacity: 0"]) {
+        pointer-events: none;
+      }
+      .mui-style-1h9migj {
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        width: 100%;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: -32px;
+        width: calc(100% + 32px);
+        margin-left: -32px;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      .mui-style-1h9migj > .MuiGrid-item {
+        max-width: none;
+      }
+      .mui-style-1h9migj > .MuiGrid-item {
+        padding-top: 32px;
+      }
+      .mui-style-1h9migj > .MuiGrid-item {
+        padding-left: 32px;
+      }
+      .mui-style-1wxaqej {
+        box-sizing: border-box;
+        margin: 0;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+      .mui-style-1ggxpvf {
+        margin: 0;
+        font-family:
+          "__Roboto_b33009", "__Roboto_Fallback_b33009", Helvetica, Arial,
+          sans-serif;
+        font-weight: 500;
+        font-size: 1.25rem;
+        line-height: 1.6;
+      }
+      .mui-style-8yzpf7 {
+        display: inline-block;
+        -webkit-animation: animation-61bdi0 1.4s linear infinite;
+        animation: animation-61bdi0 1.4s linear infinite;
+      }
+      .mui-style-13o7eu2 {
+        display: block;
+      }
+      .mui-style-14891ef {
+        stroke: currentColor;
+        stroke-dasharray: 80px, 200px;
+        stroke-dashoffset: 0;
+        -webkit-animation: animation-1p2h4ri 1.4s ease-in-out infinite;
+        animation: animation-1p2h4ri 1.4s ease-in-out infinite;
+      }
+      .mui-style-q0tk53 {
+        height: 56px;
+      }
+    </style>
+    <style data-emotion="mui-style" data-s=""></style>
+    <link
+      rel="preload"
+      href="/_next/static/media/1e41be92c43b3255-s.p.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+      data-next-font="size-adjust"
+    />
+    <link
+      rel="preload"
+      href="/_next/static/css/2beebcbad59f0ec4.css"
+      as="style"
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="/_next/static/css/2beebcbad59f0ec4.css"
+      crossorigin=""
+      data-n-g=""
+    />
+    <noscript data-n-css=""></noscript>
+    <script
+      defer=""
+      crossorigin=""
+      nomodule=""
+      src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"
+    ></script>
+    <script
+      src="/_next/static/chunks/webpack-50de3ede460c243a.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/framework-db974941de2ef0e9.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/main-d46941bfbe125ebd.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/pages/_app-47ac45985feba0a7.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/ee8b1517-e54d8762d8f1886b.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/3349-fe8c6988f541adc6.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/6375-0bd6973947eafddd.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/6500-07b322763a2f4991.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/6638-5513aafde1df754f.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/4010-dc0fcd5931de00d1.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/1362-f97684c65499c752.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/2426-cf0440591b3bd2ed.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/2617-d4f318a2e12ee77f.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/9995-afcfb1350e8b88bd.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/9021-3239762ec177c2c1.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/6470-689db1b1637a47a6.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/chunks/pages/index-fe4ef6b2bf4faa91.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/DW0M6eB5pVX_pe8Cg5T0K/_buildManifest.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <script
+      src="/_next/static/DW0M6eB5pVX_pe8Cg5T0K/_ssgManifest.js"
+      defer=""
+      crossorigin=""
+    ></script>
+    <style data-emotion="mui-style-global animation-61bdi0" data-s="">
+      @-webkit-keyframes animation-61bdi0 {
+        0% {
+          -webkit-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes animation-61bdi0 {
+        0% {
+          -webkit-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <style data-emotion="mui-style-global animation-1p2h4ri" data-s="">
+      @-webkit-keyframes animation-1p2h4ri {
+        0% {
+          stroke-dasharray: 1px, 200px;
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -15px;
+        }
+        100% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -125px;
+        }
+      }
+      @keyframes animation-1p2h4ri {
+        0% {
+          stroke-dasharray: 1px, 200px;
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -15px;
+        }
+        100% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -125px;
+        }
+      }
+    </style>
+    <style id="_goober">
+      .go1475592160 {
+        height: 0;
+      }
+      .go1671063245 {
+        height: auto;
+      }
+      .go1888806478 {
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 1;
+      }
+      @media (min-width: 600px) {
+        .go1888806478 {
+          flex-grow: initial;
+          min-width: 288px;
+        }
+      }
+      .go167266335 {
+        background-color: #313131;
+        font-size: 0.875rem;
+        line-height: 1.43;
+        letter-spacing: 0.01071em;
+        color: #fff;
+        align-items: center;
+        padding: 6px 16px;
+        border-radius: 4px;
+        box-shadow:
+          0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+          0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+          0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+      }
+      .go3162094071 {
+        padding-left: 20px;
+      }
+      .go3844575157 {
+        background-color: #313131;
+      }
+      .go1725278324 {
+        background-color: #43a047;
+      }
+      .go3651055292 {
+        background-color: #d32f2f;
+      }
+      .go4215275574 {
+        background-color: #ff9800;
+      }
+      .go1930647212 {
+        background-color: #2196f3;
+      }
+      .go946087465 {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+      }
+      .go703367398 {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        padding-left: 16px;
+        margin-right: -8px;
+      }
+      .go3963613292 {
+        width: 100%;
+        position: relative;
+        transform: translateX(0);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        min-width: 288px;
+      }
+      .go1141946668 {
+        box-sizing: border-box;
+        display: flex;
+        max-height: 100%;
+        position: fixed;
+        z-index: 1400;
+        height: auto;
+        width: auto;
+        transition:
+          top 300ms ease 0ms,
+          right 300ms ease 0ms,
+          bottom 300ms ease 0ms,
+          left 300ms ease 0ms,
+          max-width 300ms ease 0ms;
+        pointer-events: none;
+        max-width: calc(100% - 40px);
+      }
+      .go1141946668 .notistack-CollapseWrapper {
+        padding: 6px 0px;
+        transition: padding 300ms ease 0ms;
+      }
+      @media (max-width: 599.95px) {
+        .go1141946668 {
+          width: 100%;
+          max-width: calc(100% - 32px);
+        }
+      }
+      .go3868796639 .notistack-CollapseWrapper {
+        padding: 2px 0px;
+      }
+      .go3118922589 {
+        top: 14px;
+        flex-direction: column;
+      }
+      .go1453831412 {
+        bottom: 14px;
+        flex-direction: column-reverse;
+      }
+      .go4027089540 {
+        left: 20px;
+      }
+      @media (min-width: 600px) {
+        .go4027089540 {
+          align-items: flex-start;
+        }
+      }
+      @media (max-width: 599.95px) {
+        .go4027089540 {
+          left: 16px;
+        }
+      }
+      .go2989568495 {
+        right: 20px;
+      }
+      @media (min-width: 600px) {
+        .go2989568495 {
+          align-items: flex-end;
+        }
+      }
+      @media (max-width: 599.95px) {
+        .go2989568495 {
+          right: 16px;
+        }
+      }
+      .go4034260886 {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      @media (min-width: 600px) {
+        .go4034260886 {
+          align-items: center;
+        }
+      }
+    </style>
+    <script
+      async=""
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA04vFwCdQ-rs3uLb1OkOBHzCSFChGqR_s&amp;data-sentry-element=APIProvider&amp;data-sentry-source-file=_app.tsx&amp;solution_channel=GMP_visgl_rgmlibrary_v1_default&amp;loading=async&amp;callback=__googleMapsCallback__"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/_next/static/css/6f770a3ee0c3cfae.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/_next/static/css/2db1070fba8005fd.css"
+    />
+    <style type="text/css" data-href="src/OverpassLayer.css">
+      .leaflet-popup-content {
+        max-height: 250px;
+        overflow: auto;
+      }
+      .leaflet-popup-content pre {
+        font-size: 8px;
+      }
+      .overpass-layer-icon > img,
+      .overpass-layer-icon > svg {
+        display: block;
+      }
+      .overpass-layer-icon div.sign {
+        position: relative;
+        font-size: 12px;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+      }
+      /*  top: -37px; */
+    </style>
+    <style type="text/css" data-href="src/OverpassLayerList.css">
+      ul.overpass-layer-list {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+      }
+      ul.overpass-layer-list > li {
+        position: relative;
+        list-style: none;
+        min-height: 30px;
+        padding-left: 40px;
+      }
+      ul.overpass-layer-list > li.selected {
+        background: #e0e0e0;
+      }
+      ul.overpass-layer-list > li > .marker {
+        position: absolute;
+        margin-left: -35px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        display: block;
+        color: black;
+        text-decoration: none;
+      }
+
+      ul.overpass-layer-list > li > .marker > .sign {
+        text-align: center;
+        position: absolute;
+        top: 3px;
+        font-size: 15px;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        display: inline-block;
+      }
+      ul.overpass-layer-list > li > .content > a.title {
+        display: inline-block;
+        color: black;
+        text-decoration: none;
+      }
+      ul.overpass-layer-list > li > .content > a.title:hover,
+      ul.overpass-layer-list > li > .content > a.title:active {
+        text-decoration: underline;
+      }
+      ul.overpass-layer-list > li > .content > div.description {
+        font-style: italic;
+        color: #707070;
+        float: right;
+        text-align: right;
+      }
+      ul.overpass-layer-list > li:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .hoverable {
+        cursor: pointer;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps-api-v3/api/js/66/8b/main.js"></script>
+    <script
+      type="text/javascript"
+      charset="UTF-8"
+      src="https://maps.googleapis.com/maps-api-v3/api/js/66/8b/common.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="UTF-8"
+      src="https://maps.googleapis.com/maps-api-v3/api/js/66/8b/map.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="UTF-8"
+      src="https://maps.googleapis.com/maps-api-v3/api/js/66/8b/util.js"
+    ></script>
+  </head>
+  <body style="overflow: hidden; touch-action: none">
+    <div id="__next">
+      <div class="FullScreen" style="height: 100%; width: 100%">
+        <div class="MuiBox-root mui-style-1t8ouv2">
+          <header
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation1 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed mui-style-e2dv38"
+          >
+            <div
+              class="MuiContainer-root MuiContainer-maxWidthXl mui-style-1ekb41w"
+            >
+              <div class="MuiToolbar-root MuiToolbar-regular mui-style-1gwul5j">
+                <div class="MuiBox-root mui-style-5hd5ww">
+                  <img
+                    alt="logo"
+                    fetchpriority="high"
+                    width="166"
+                    height="32"
+                    decoding="async"
+                    data-nimg="1"
+                    style="color: transparent; object-fit: cover"
+                    src="/_next/static/media/trailmap-logo.0c9a4a8c.png"
+                  />
+                </div>
+                <div class="MuiBox-root mui-style-mfiwgy">
+                  <button
+                    class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1muhyso"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <svg
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1c3u61v"
+                      focusable="false"
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      data-testid="HomeIcon"
+                    >
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg
+                    ><span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span></button
+                  ><button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary mui-style-yh5ptb"
+                    tabindex="0"
+                    type="button"
+                    aria-haspopup="true"
+                  >
+                    Routes<span
+                      class="MuiButton-icon MuiButton-endIcon MuiButton-iconSizeMedium mui-style-1n4a93h"
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="ArrowDropDownIcon"
+                      >
+                        <path d="m7 10 5 5 5-5z"></path></svg></span
+                    ><span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span></button
+                  ><button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary mui-style-yh5ptb"
+                    tabindex="0"
+                    type="button"
+                    aria-haspopup="true"
+                  >
+                    Tracks<span
+                      class="MuiButton-icon MuiButton-endIcon MuiButton-iconSizeMedium mui-style-1n4a93h"
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="ArrowDropDownIcon"
+                      >
+                        <path d="m7 10 5 5 5-5z"></path></svg></span
+                    ><span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span></button
+                  ><button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary mui-style-1cmprjc"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Places<span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span></button
+                  ><button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary mui-style-yh5ptb"
+                    tabindex="0"
+                    type="button"
+                    aria-haspopup="true"
+                  >
+                    Maps<span
+                      class="MuiButton-icon MuiButton-endIcon MuiButton-iconSizeMedium mui-style-1n4a93h"
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="ArrowDropDownIcon"
+                      >
+                        <path d="m7 10 5 5 5-5z"></path></svg></span
+                    ><span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span></button
+                  ><button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary mui-style-yh5ptb"
+                    tabindex="0"
+                    type="button"
+                    aria-haspopup="true"
+                  >
+                    Info<span
+                      class="MuiButton-icon MuiButton-endIcon MuiButton-iconSizeMedium mui-style-1n4a93h"
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="ArrowDropDownIcon"
+                      >
+                        <path d="m7 10 5 5 5-5z"></path></svg></span
+                    ><span class="MuiTouchRipple-root mui-style-w0pj6f"></span>
+                  </button>
+                </div>
+                <div class="MuiBox-root mui-style-14mag4w">
+                  <button
+                    class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-a7edh1"
+                    tabindex="0"
+                    type="button"
+                    aria-haspopup="true"
+                    aria-label="Change language"
+                    data-sentry-element="IconButton"
+                    data-sentry-source-file="LanguageSwitcher.tsx"
+                  >
+                    <svg
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-dwpknh"
+                      focusable="false"
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      data-testid="LanguageIcon"
+                      data-sentry-element="LanguageIcon"
+                      data-sentry-source-file="LanguageSwitcher.tsx"
+                    >
+                      <path
+                        d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2m6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56M12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56m2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8M12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96M14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2m.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56M16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2z"
+                      ></path>
+                    </svg>
+                    <p
+                      class="MuiTypography-root MuiTypography-body1 mui-style-ait9ab"
+                      data-sentry-element="Typography"
+                      data-sentry-source-file="LanguageSwitcher.tsx"
+                    >
+                      EN
+                    </p>
+                    <svg
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1ogduin"
+                      focusable="false"
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      data-testid="ArrowDropDownIcon"
+                      data-sentry-element="ArrowDropDownIcon"
+                      data-sentry-source-file="LanguageSwitcher.tsx"
+                    >
+                      <path d="m7 10 5 5 5-5z"></path></svg
+                    ><span class="MuiTouchRipple-root mui-style-w0pj6f"></span>
+                  </button>
+                </div>
+                <div class="MuiBox-root mui-style-2uchni">
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary mui-style-7zdkdg"
+                    tabindex="0"
+                    type="button"
+                    aria-label="Sign in / Register"
+                  >
+                    Sign in / Register<span
+                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                    ></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </header>
+          <input
+            type="file"
+            style="display: none"
+            accept=".gpx, .kml, .kmz, application/gpx, application/gpx+xml, application/octet-stream, application/vnd.google-earth.kml+xml, application/vnd.google-earth.kmz, application/xml"
+            multiple=""
+          />
+          <div class="MuiBox-root mui-style-q0tk53"></div>
+          <div class="MuiBox-root mui-style-1t8ouv2">
+            <div class="MuiBox-root mui-style-1by6h7i">
+              <div
+                class="MuiDrawer-root MuiDrawer-docked mui-style-5zapwm"
+                container="[object HTMLDivElement]"
+              >
+                <div
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft mui-style-rllwlg"
+                >
+                  <div
+                    class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular mui-style-i6s8oy"
+                  ></div>
+                  <div class="MuiBox-root mui-style-1v8x7dw">
+                    <div class="MuiBox-root mui-style-1r7kth7">
+                      <button
+                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeEnd MuiIconButton-sizeMedium mui-style-1y1k3rb"
+                        tabindex="0"
+                        type="button"
+                        aria-label="close"
+                      >
+                        <svg
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                          focusable="false"
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          data-testid="CloseIcon"
+                        >
+                          <path
+                            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                          ></path></svg
+                        ><span
+                          class="MuiTouchRipple-root mui-style-w0pj6f"
+                        ></span>
+                      </button>
+                    </div>
+                    <div
+                      class="MuiTypography-root MuiTypography-h5 mui-style-58kntw"
+                    >
+                      &lt;New route&gt;
+                    </div>
+                    <div class="MuiBox-root mui-style-iclmdq">
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 mui-style-tuxzvu"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 mui-style-1udb513"
+                        >
+                          <div
+                            class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                          >
+                            163 km
+                          </div>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 mui-style-8e4lkk"
+                        >
+                          <div
+                            class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                          >
+                            841 m
+                          </div>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 mui-style-4xkoi8"
+                        >
+                          <div class="MuiBox-root mui-style-1l4w6pd">
+                            <div
+                              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault mui-style-o8nzrd"
+                            >
+                              1
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr
+                      class="MuiDivider-root MuiDivider-fullWidth mui-style-39bbo6"
+                    />
+                    <div class="MuiBox-root mui-style-cfpxc0">
+                      <button
+                        class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth mui-style-1otwht6"
+                        tabindex="0"
+                        type="button"
+                        aria-haspopup="true"
+                      >
+                        <svg
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-82xa1e"
+                          focusable="false"
+                          aria-hidden="true"
+                          viewBox="0 0 20 20"
+                          data-sentry-element="SvgIcon"
+                          data-sentry-component="CustomRoadIcon"
+                          data-sentry-source-file="CustomRouteIcons.tsx"
+                        >
+                          <path
+                            d="M15.3823 4.37761C15.3823 5.09233 14.8292 5.67173 14.147 5.67173C13.4648 5.67173 12.9117 5.09233 12.9117 4.37761C12.9117 3.66289 13.4648 3.0835 14.147 3.0835C14.8292 3.0835 15.3823 3.66289 15.3823 4.37761Z"
+                            fill="currentColor"
+                            data-sentry-element="path"
+                            data-sentry-source-file="CustomRouteIcons.tsx"
+                          ></path>
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M0.833252 13.5802C0.833252 15.5933 2.41168 17.2469 4.33325 17.2469C6.25483 17.2469 7.83325 15.5933 7.83325 13.5802C7.83325 11.5672 6.25483 9.91356 4.33325 9.91356C2.41168 9.91356 0.833252 11.5672 0.833252 13.5802ZM4.33326 11.3515C3.16659 11.3515 2.20581 12.358 2.20581 13.5802C2.20581 14.8024 3.16659 15.809 4.33326 15.809C5.49992 15.809 6.46071 14.8024 6.46071 13.5802C6.46071 12.358 5.49992 11.3515 4.33326 11.3515Z"
+                            fill="currentColor"
+                            data-sentry-element="path"
+                            data-sentry-source-file="CustomRouteIcons.tsx"
+                          ></path>
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M11.3333 13.5802C11.3333 15.5933 12.9117 17.2469 14.8333 17.2469C16.8234 17.2469 18.3333 15.5933 18.3333 13.5802C18.3333 11.5672 16.7548 9.91356 14.8333 9.91356C12.9117 9.91356 11.3333 11.5672 11.3333 13.5802ZM14.8332 11.3515C13.6666 11.3515 12.7058 12.358 12.7058 13.5802C12.7058 14.8024 13.6666 15.809 14.8332 15.809C15.9999 15.809 16.9607 14.8024 16.9607 13.5802C16.9607 12.358 15.9999 11.3515 14.8332 11.3515Z"
+                            fill="currentColor"
+                            data-sentry-element="path"
+                            data-sentry-source-file="CustomRouteIcons.tsx"
+                          ></path>
+                          <path
+                            d="M12.294 5.67173L13.5979 7.32533L16.2058 7.39722V8.76323L13.3234 8.90703H12.9803L12.7744 8.61944L11.6077 7.10964C11.5391 7.18154 8.58815 7.82859 8.58815 7.82859L10.098 9.76977L10.3038 9.98545V10.2011L10.4411 14.8743L9.06853 14.9462L8.93128 10.5606C8.93128 10.5606 6.32344 8.54755 5.77442 7.61291C5.43128 7.03774 5.49991 6.1031 6.32344 5.81552C7.42148 5.45604 10.7842 4.6652 10.7842 4.6652C11.6764 4.30572 12.294 5.67173 12.294 5.67173Z"
+                            fill="currentColor"
+                            data-sentry-element="path"
+                            data-sentry-source-file="CustomRouteIcons.tsx"
+                          ></path>
+                        </svg>
+                        <p
+                          class="MuiTypography-root MuiTypography-body1 mui-style-5nip1j"
+                        >
+                          Road bike
+                        </p>
+                        <svg
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1cetvs3"
+                          focusable="false"
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          data-testid="ExpandMoreIcon"
+                        >
+                          <path
+                            d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                          ></path></svg
+                        ><span
+                          class="MuiTouchRipple-root mui-style-w0pj6f"
+                        ></span>
+                      </button>
+                      <li
+                        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-1vm6o1v"
+                        aria-haspopup="true"
+                      >
+                        <div class="MuiListItemText-root mui-style-1tsvksn">
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary mui-style-15qbgc5"
+                            ><div class="MuiBox-root mui-style-70qvj9">
+                              Routing settings
+                            </div></span
+                          >
+                        </div>
+                        <svg
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1cetvs3"
+                          focusable="false"
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          data-testid="SettingsIcon"
+                        >
+                          <path
+                            d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6"
+                          ></path>
+                        </svg>
+                      </li>
+                      <li
+                        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-21o27x"
+                      >
+                        <div
+                          class="MuiListItemText-root mui-style-1tsvksn"
+                          id="switch-list-label-routingmode-gh"
+                        >
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary mui-style-15qbgc5"
+                            >Follow roads &amp; paths</span
+                          >
+                        </div>
+                        <span
+                          class="MuiSwitch-root MuiSwitch-edgeEnd MuiSwitch-sizeMedium mui-style-1khkl1x"
+                          ><span
+                            class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked Mui-checked mui-style-1etwyfu"
+                            ><input
+                              class="PrivateSwitchBase-input MuiSwitch-input mui-style-1m9pwf3"
+                              type="checkbox"
+                              aria-labelledby="switch-list-label-routingmode-gh"
+                              checked="" /><span
+                              class="MuiSwitch-thumb mui-style-19gndve"
+                            ></span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span></span
+                          ><span class="MuiSwitch-track mui-style-7v8rlf"></span
+                        ></span>
+                      </li>
+                    </div>
+                    <div
+                      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded MuiAccordion-gutters mui-style-1aj41gs"
+                    >
+                      <div
+                        class="MuiButtonBase-root MuiAccordionSummary-root MuiAccordionSummary-gutters mui-style-1oqimao"
+                        tabindex="0"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="panel-v2-content"
+                        id="panel-v2-header"
+                      >
+                        <div
+                          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters mui-style-l0jafl"
+                        >
+                          <p
+                            class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                          >
+                            Summary
+                          </p>
+                        </div>
+                        <div
+                          class="MuiAccordionSummary-expandIconWrapper mui-style-1fx8m19"
+                        >
+                          <svg
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            data-testid="ExpandMoreIcon"
+                          >
+                            <path
+                              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden mui-style-a0y2e3"
+                        style="min-height: 0px"
+                      >
+                        <div
+                          class="MuiCollapse-wrapper MuiCollapse-vertical mui-style-hboir5"
+                        >
+                          <div
+                            class="MuiCollapse-wrapperInner MuiCollapse-vertical mui-style-8atqhb"
+                          >
+                            <div
+                              aria-labelledby="panel-v2-header"
+                              id="panel-v2-content"
+                              role="region"
+                              class="MuiAccordion-region"
+                            >
+                              <div
+                                class="MuiAccordionDetails-root mui-style-u7qq7e"
+                              >
+                                <h6
+                                  class="MuiTypography-root MuiTypography-h6 mui-style-zw7a8a"
+                                >
+                                  Gravel class
+                                </h6>
+                                <ul
+                                  class="MuiList-root MuiList-padding MuiList-dense mui-style-11j3zii"
+                                >
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-fmjwpo"
+                                          >Asphalt (0-)</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >162.33 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1eofeo6"
+                                          >Satisfactory (1)</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >0.42 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-fmjwpo"
+                                          >Very good (0)</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >0.23 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                </ul>
+                                <h6
+                                  class="MuiTypography-root MuiTypography-h6 mui-style-1r9jdtr"
+                                >
+                                  Road types
+                                </h6>
+                                <ul
+                                  class="MuiList-root MuiList-padding MuiList-dense mui-style-11j3zii"
+                                >
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Minor road</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >115.44 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Cycleway</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >47.10 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Service road</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >0.43 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                </ul>
+                                <h6
+                                  class="MuiTypography-root MuiTypography-h6 mui-style-1r9jdtr"
+                                >
+                                  Surfaces
+                                </h6>
+                                <ul
+                                  class="MuiList-root MuiList-padding MuiList-dense mui-style-11j3zii"
+                                >
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Asphalt</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >162.33 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Unknown</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >0.44 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-4doj1y"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <p
+                                        class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                                      >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-1x3dojk"
+                                          >Fine gravel</span
+                                        >
+                                        <span
+                                          class="MuiTypography-root MuiTypography-body1 mui-style-rbonpe"
+                                          >0.22 km</span
+                                        >
+                                      </p>
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded MuiAccordion-gutters mui-style-1aj41gs"
+                    >
+                      <div
+                        class="MuiButtonBase-root MuiAccordionSummary-root MuiAccordionSummary-gutters mui-style-1yt3zme"
+                        tabindex="0"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="panel-v2-content"
+                        id="panel-v2-header"
+                      >
+                        <div
+                          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters mui-style-l0jafl"
+                        >
+                          <p
+                            class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                          >
+                            Warnings
+                          </p>
+                          <svg
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-gczl5s"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            data-testid="DangerousIcon"
+                          >
+                            <path
+                              d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27zM17 15.74 15.74 17 12 13.26 8.26 17 7 15.74 10.74 12 7 8.26 8.26 7 12 10.74 15.74 7 17 8.26 13.26 12z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          class="MuiAccordionSummary-expandIconWrapper mui-style-1fx8m19"
+                        >
+                          <svg
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            data-testid="ExpandMoreIcon"
+                          >
+                            <path
+                              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden mui-style-a0y2e3"
+                        style="
+                          min-height: 0px;
+                          height: 0px;
+                          transition-duration: 237ms;
+                        "
+                      >
+                        <div
+                          class="MuiCollapse-wrapper MuiCollapse-vertical mui-style-hboir5"
+                        >
+                          <div
+                            class="MuiCollapse-wrapperInner MuiCollapse-vertical mui-style-8atqhb"
+                          >
+                            <div
+                              aria-labelledby="panel-v2-header"
+                              id="panel-v2-content"
+                              role="region"
+                              class="MuiAccordion-region"
+                            >
+                              <div
+                                class="MuiAccordionDetails-root mui-style-8j9asf"
+                              >
+                                <ul
+                                  class="MuiList-root MuiList-padding MuiList-dense mui-style-1ontqvh"
+                                >
+                                  <div
+                                    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters mui-style-1cshgxd"
+                                    tabindex="0"
+                                    role="button"
+                                  >
+                                    <div
+                                      class="MuiListItemText-root MuiListItemText-dense mui-style-1tsvksn"
+                                    >
+                                      <span
+                                        class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary mui-style-9r3aom"
+                                        ><span
+                                          style="font-weight: 500; color: red"
+                                          >Coarse surface - requires a gravel
+                                          bike</span
+                                        >: 0.4 km</span
+                                      >
+                                    </div>
+                                    <span
+                                      class="MuiTouchRipple-root mui-style-w0pj6f"
+                                    ></span>
+                                  </div>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded MuiAccordion-gutters mui-style-1aj41gs"
+                    >
+                      <div
+                        class="MuiButtonBase-root MuiAccordionSummary-root MuiAccordionSummary-gutters mui-style-1oqimao"
+                        tabindex="0"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="route-points-content"
+                        id="route-points-header"
+                      >
+                        <div
+                          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters mui-style-l0jafl"
+                        >
+                          <p
+                            class="MuiTypography-root MuiTypography-body1 mui-style-1j9yiba"
+                          >
+                            Route places
+                          </p>
+                        </div>
+                        <div
+                          class="MuiAccordionSummary-expandIconWrapper mui-style-1fx8m19"
+                        >
+                          <svg
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            data-testid="ExpandMoreIcon"
+                          >
+                            <path
+                              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden mui-style-a0y2e3"
+                        style="
+                          min-height: 0px;
+                          height: 0px;
+                          transition-duration: 182ms;
+                        "
+                      >
+                        <div
+                          class="MuiCollapse-wrapper MuiCollapse-vertical mui-style-hboir5"
+                        >
+                          <div
+                            class="MuiCollapse-wrapperInner MuiCollapse-vertical mui-style-8atqhb"
+                          >
+                            <div
+                              aria-labelledby="route-points-header"
+                              id="route-points-content"
+                              role="region"
+                              class="MuiAccordion-region"
+                            >
+                              <div
+                                class="MuiAccordionDetails-root mui-style-wnpvur"
+                              >
+                                <p
+                                  class="MuiTypography-root MuiTypography-body2 mui-style-o5rv1l"
+                                >
+                                  No places yet.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <ul class="MuiList-root MuiList-padding mui-style-wzl3fi">
+                      <li
+                        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-1x1y7v8"
+                      >
+                        <button
+                          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary mui-style-lfsk27"
+                          tabindex="0"
+                          type="button"
+                        >
+                          Save route<span
+                            class="MuiTouchRipple-root mui-style-w0pj6f"
+                          ></span>
+                        </button>
+                      </li>
+                      <li
+                        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-1x1y7v8"
+                      >
+                        <div
+                          role="group"
+                          class="MuiButtonGroup-root MuiButtonGroup-contained MuiButtonGroup-vertical mui-style-esnttm"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButtonGroup-firstButton mui-style-1uee6ra"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium mui-style-6xugel"
+                              ><svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="FileDownloadIcon"
+                              >
+                                <path
+                                  d="M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z"
+                                ></path></svg></span
+                            >Save GPX<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span></button
+                          ><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButtonGroup-middleButton mui-style-1uee6ra"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium mui-style-6xugel"
+                              ><svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="WatchIcon"
+                              >
+                                <path
+                                  d="M20 12c0-2.54-1.19-4.81-3.04-6.27L16 0H8l-.95 5.73C5.19 7.19 4 9.45 4 12s1.19 4.81 3.05 6.27L8 24h8l.96-5.73C18.81 16.81 20 14.54 20 12M6 12c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6"
+                                ></path></svg></span
+                            >send to device<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span></button
+                          ><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButtonGroup-lastButton mui-style-1uee6ra"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium mui-style-6xugel"
+                              ><svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="IosShareOutlinedIcon"
+                              >
+                                <path
+                                  d="m16 5-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2"
+                                ></path></svg></span
+                            >Share route<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </li>
+                      <li
+                        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-6cmayx"
+                      >
+                        <div
+                          role="group"
+                          class="MuiButtonGroup-root MuiButtonGroup-contained MuiButtonGroup-vertical mui-style-esnttm"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSecondary MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButtonGroup-firstButton mui-style-495spi"
+                            tabindex="0"
+                            type="button"
+                          >
+                            Stop route drawing<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span></button
+                          ><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning MuiButtonGroup-grouped MuiButtonGroup-groupedVertical MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedVertical MuiButtonGroup-groupedContainedPrimary MuiButtonGroup-lastButton mui-style-1gmyqh7"
+                            tabindex="0"
+                            type="button"
+                          >
+                            Remove from map
+                            <span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <form
+                data-sentry-component="ActivityPropertiesDialog"
+                data-sentry-source-file="ActivityPropertiesDialog.tsx"
+              ></form>
+              <input
+                type="file"
+                accept=".gpx, .kml, .kmz, application/gpx, application/gpx+xml, application/octet-stream, application/vnd.google-earth.kml+xml, application/vnd.google-earth.kmz, application/xml"
+                multiple=""
+                style="display: none"
+              />
+              <div class="MuiBox-root mui-style-10zslrd">
+                <div
+                  class="maplibregl-map"
+                  style="position: relative; width: 100%; height: 100%"
+                >
+                  <div
+                    class="maplibregl-canvas-container maplibregl-interactive maplibregl-touch-drag-pan maplibregl-touch-zoom-rotate"
+                  >
+                    <canvas
+                      class="maplibregl-canvas"
+                      tabindex="0"
+                      aria-label="Map"
+                      role="region"
+                      width="2260"
+                      height="476"
+                      style="
+                        width: 1808px;
+                        height: 381px;
+                        cursor: crosshair;
+                        filter: brightness(100%) contrast(100%);
+                      "
+                    ></canvas>
+                    <div
+                      class="maplibregl-marker maplibregl-marker-anchor-center"
+                      aria-label="Map marker"
+                      style="
+                        transform: translate(-50%, -50%) translate(976px, 406px)
+                          rotateX(0deg) rotateZ(0deg);
+                        display: block;
+                        z-index: 49;
+                        cursor: pointer;
+                        opacity: 1;
+                      "
+                    >
+                      <svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="PlayArrowIcon"
+                        style="
+                          font-size: 30px;
+                          color: red;
+                          fill: white;
+                          margin: 5px;
+                          cursor: pointer;
+                        "
+                      >
+                        <path d="M8 5v14l11-7z"></path></svg
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="PlayCircleFilledIcon"
+                        style="
+                          position: absolute;
+                          font-size: 30px;
+                          color: red;
+                          fill: green;
+                          top: 0px;
+                          left: 0px;
+                          margin: 5px;
+                          cursor: pointer;
+                        "
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 14.5v-9l6 4.5z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div
+                      class="maplibregl-marker maplibregl-marker-anchor-center"
+                      aria-label="Map marker"
+                      style="
+                        transform: translate(-50%, -50%) translate(856px, 204px)
+                          rotateX(0deg) rotateZ(0deg);
+                        display: block;
+                        z-index: 49;
+                        cursor: pointer;
+                        opacity: 1;
+                      "
+                    >
+                      <svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="CircleIcon"
+                        style="
+                          font-size: 30px;
+                          color: red;
+                          fill: white;
+                          margin: 5px;
+                          cursor: pointer;
+                        "
+                      >
+                        <path
+                          d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2"
+                        ></path></svg
+                      ><svg
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        data-testid="StopCircleIcon"
+                        style="
+                          font-size: 30px;
+                          color: red;
+                          fill: red;
+                          top: 0px;
+                          left: 0px;
+                          position: absolute;
+                          margin: 5px;
+                          cursor: pointer;
+                        "
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m4 14H8V8h8z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="maplibregl-control-container">
+                    <div class="maplibregl-ctrl-top-left">
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          aria-label="3D map"
+                          map="[object Object]"
+                          data-sentry-element="CustomTooltip"
+                          data-sentry-component="AppTooltip"
+                          data-sentry-source-file="AppTooltip.tsx"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-ldlmth"
+                            tabindex="0"
+                            type="button"
+                            style="pointer-events: all"
+                          >
+                            <div class="MuiBox-root mui-style-14ktbsh">
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="TerrainOutlinedIcon"
+                                style="margin-top: 4px"
+                              >
+                                <path
+                                  d="m14 6-4.22 5.63 1.25 1.67L14 9.33 19 16h-8.46l-4.01-5.37L1 18h22zM5 16l1.52-2.03L8.04 16z"
+                                ></path>
+                              </svg>
+                            </div>
+                            <span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="
+                            width: 36px;
+                            position: relative;
+                            background-color: white;
+                          "
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-n60e6"
+                            tabindex="0"
+                            type="button"
+                            aria-haspopup="true"
+                            style="pointer-events: all"
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="MapIcon"
+                              aria-label="Map settings"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px"
+                            >
+                              <path
+                                d="m20.5 3-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5M15 19l-6-2.11V5l6 2.11z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="
+                            width: 36px;
+                            position: relative;
+                            display: block;
+                          "
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#616161"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="tabler-icon tabler-icon-map-route"
+                              aria-label="Topographic map on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px"
+                            >
+                              <path
+                                d="M3 7l6 -3l6 3l6 -3v13l-6 3l-6 -3l-6 3v-13"
+                              ></path>
+                              <path d="M9 12v.01"></path>
+                              <path d="M6 13v.01"></path>
+                              <path d="M17 15l-4 -4"></path>
+                              <path d="M13 15l4 -4"></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="PublicIcon"
+                              aria-label="Aerial"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="RadioButtonUncheckedOutlinedIcon"
+                              aria-label="Simple map"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            aria-haspopup="true"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="LayersIcon"
+                              aria-label="Overlay maps"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="m11.99 18.54-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="VisibilityIcon"
+                              aria-label="Overlay map on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="ContrastIcon"
+                              aria-label="High contrast on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10m1-17.93c3.94.49 7 3.85 7 7.93s-3.05 7.44-7 7.93z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <div
+                              class="MuiBox-root mui-style-0"
+                              aria-label="MML ways on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <p
+                                class="MuiTypography-root MuiTypography-body1 mui-style-vxvfhp"
+                              >
+                                MML
+                              </p>
+                            </div>
+                            <span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            aria-haspopup="true"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="PlaceIcon"
+                              aria-label="Places (POI)"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="TuneIcon"
+                              aria-label="Own profile on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M3 17v2h6v-2zM3 5v2h10V5zm10 16v-2h8v-2h-8v-2h-2v6zM7 9v2H3v2h4v2h2V9zm14 4v-2H11v2zm-6-4h2V7h4V5h-4V3h-2z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="BoyIcon"
+                              aria-label="Google Street View on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="font-size: 36px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M12 7.5c.97 0 1.75-.78 1.75-1.75S12.97 4 12 4s-1.75.78-1.75 1.75S11.03 7.5 12 7.5M14 20v-5h1v-4.5c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2V15h1v5z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="GridOnIcon"
+                              aria-label=" on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="margin-top: 4px; color: rgb(97, 97, 97)"
+                            >
+                              <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M8 20H4v-4h4zm0-6H4v-4h4zm0-6H4V4h4zm6 12h-4v-4h4zm0-6h-4v-4h4zm0-6h-4V4h4zm6 12h-4v-4h4zm0-6h-4v-4h4zm0-6h-4V4h4z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          map="[object Object]"
+                          style="width: 36px; position: relative; display: none"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-1nrqq9t"
+                            tabindex="0"
+                            type="button"
+                            style="
+                              pointer-events: all;
+                              overflow: hidden;
+                              background-color: rgb(255, 255, 255);
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 30 30"
+                              aria-label="Squadrats on/off"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                              style="
+                                margin-top: 4px;
+                                font-size: 20px;
+                                color: rgb(102, 51, 153);
+                              "
+                            >
+                              <path
+                                d="m.36 0c-.2 0-.36.16-.36.36v29.27c0 .2.16.36.36.36h19.27c.2 0 .36-.16.36-.36v-9.27c0-.2.16-.36.36-.36h9.27c.2 0 .36-.16.36-.36v-19.28c0-.2-.16-.36-.36-.36zm10 20c-.2 0-.36-.16-.36-.36v-9.27c0-.2.16-.36.36-.36h9.27c.2 0 .36.16.36.36v9.27c0 .2-.16.36-.36.36z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          map="[object Object]"
+                          style="
+                            pointer-events: all;
+                            padding: 20px;
+                            margin: -20px;
+                            position: absolute;
+                            top: -50px;
+                            left: 10px;
+                          "
+                        >
+                          <div
+                            role="group"
+                            class="MuiButtonGroup-root MuiButtonGroup-contained mui-style-ta1uow"
+                            aria-label="outlined button group"
+                            style="
+                              pointer-events: all;
+                              border-radius: 8px;
+                              height: 36px;
+                            "
+                          >
+                            <button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-firstButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Hide / show route"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="RouteIcon"
+                              >
+                                <path
+                                  d="M19 15.18V7c0-2.21-1.79-4-4-4s-4 1.79-4 4v10c0 1.1-.9 2-2 2s-2-.9-2-2V8.82C8.16 8.4 9 7.3 9 6c0-1.66-1.34-3-3-3S3 4.34 3 6c0 1.3.84 2.4 2 2.82V17c0 2.21 1.79 4 4 4s4-1.79 4-4V7c0-1.1.9-2 2-2s2 .9 2 2v8.18c-1.16.41-2 1.51-2 2.82 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.3-.84-2.4-2-2.82"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Add a place to the route"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="AddLocationAltIcon"
+                              >
+                                <path
+                                  d="M20 1v3h3v2h-3v3h-2V6h-3V4h3V1zm-8 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m2-9.75V7h3v3h2.92c.05.39.08.79.08 1.2 0 3.32-2.67 7.25-8 11.8-5.33-4.55-8-8.48-8-11.8C4 6.22 7.8 3 12 3c.68 0 1.35.08 2 .25"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Reverse route"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="SyncAltIcon"
+                              >
+                                <path
+                                  d="m18 12 4-4-4-4v3H3v2h15zM6 12l-4 4 4 4v-3h15v-2H6z"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Add to start"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="ControlPointIcon"
+                              >
+                                <path
+                                  d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4zm-1-5C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Crop"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="ContentCutIcon"
+                              >
+                                <path
+                                  d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2m0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2m6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5M19 3l-6 6 2 2 7-7V3z"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Undo previous action"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="UndoIcon"
+                              >
+                                <path
+                                  d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-middleButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Redo previous action"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="RedoIcon"
+                              >
+                                <path
+                                  d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7z"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span></button
+                            ><button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-lastButton mui-style-1fk0eya"
+                              tabindex="0"
+                              type="button"
+                              aria-label="Restart route drawing"
+                              data-sentry-element="CustomTooltip"
+                              data-sentry-component="AppTooltip"
+                              data-sentry-source-file="AppTooltip.tsx"
+                            >
+                              <svg
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-1okqa6k"
+                                focusable="false"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                data-testid="DeleteIcon"
+                              >
+                                <path
+                                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                                ></path></svg
+                              ><span
+                                class="MuiTouchRipple-root mui-style-w0pj6f"
+                              ></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="MuiBox-root mui-style-dl997d"
+                          map="[object Object]"
+                        >
+                          <div
+                            class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-clickable MuiChip-clickableColorDefault MuiChip-filledDefault mui-style-he59mh"
+                            tabindex="0"
+                            role="button"
+                          >
+                            <span
+                              class="MuiChip-label MuiChip-labelMedium mui-style-9iedg7"
+                              >Finland</span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </div>
+                          <div
+                            class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-clickable MuiChip-clickableColorDefault MuiChip-filledDefault mui-style-1811a25"
+                            tabindex="0"
+                            role="button"
+                          >
+                            <span
+                              class="MuiChip-label MuiChip-labelMedium mui-style-9iedg7"
+                              >Estonia</span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </div>
+                          <div
+                            class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-clickable MuiChip-clickableColorDefault MuiChip-filledDefault mui-style-1811a25"
+                            tabindex="0"
+                            role="button"
+                          >
+                            <span
+                              class="MuiChip-label MuiChip-labelMedium mui-style-9iedg7"
+                              >Norway</span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </div>
+                          <div
+                            class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-clickable MuiChip-clickableColorDefault MuiChip-filledDefault mui-style-1811a25"
+                            tabindex="0"
+                            role="button"
+                          >
+                            <span
+                              class="MuiChip-label MuiChip-labelMedium mui-style-9iedg7"
+                              >Sweden</span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </div>
+                          <div
+                            class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-clickable MuiChip-clickableColorDefault MuiChip-filledDefault mui-style-1811a25"
+                            tabindex="0"
+                            role="button"
+                          >
+                            <span
+                              class="MuiChip-label MuiChip-labelMedium mui-style-9iedg7"
+                              >Global</span
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          aria-label="Hide / show tracks"
+                          map="[object Object]"
+                          data-sentry-element="CustomTooltip"
+                          data-sentry-component="AppTooltip"
+                          data-sentry-source-file="AppTooltip.tsx"
+                          style="position: relative"
+                        >
+                          <div
+                            style="
+                              position: absolute;
+                              inset: -5px -15px;
+                              pointer-events: all;
+                              z-index: -1;
+                            "
+                          ></div>
+                          <button
+                            class=""
+                            style="
+                              pointer-events: all;
+                              color: black;
+                              background-color: rgb(255, 255, 255);
+                              border-radius: 4px;
+                            "
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mapboxgl-ctrl-icon mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="RouteIcon"
+                            >
+                              <path
+                                d="M19 15.18V7c0-2.21-1.79-4-4-4s-4 1.79-4 4v10c0 1.1-.9 2-2 2s-2-.9-2-2V8.82C8.16 8.4 9 7.3 9 6c0-1.66-1.34-3-3-3S3 4.34 3 6c0 1.3.84 2.4 2 2.82V17c0 2.21 1.79 4 4 4s4-1.79 4-4V7c0-1.1.9-2 2-2s2 .9 2 2v8.18c-1.16.41-2 1.51-2 2.82 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.3-.84-2.4-2-2.82"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="maplibregl-ctrl-top-right">
+                      <div class="maplibregl-ctrl maplibregl-ctrl-group">
+                        <button
+                          class="maplibregl-ctrl-geolocate"
+                          type="button"
+                          title="Find my location"
+                          aria-label="Find my location"
+                          aria-pressed="false"
+                        >
+                          <span
+                            class="maplibregl-ctrl-icon"
+                            aria-hidden="true"
+                          ></span>
+                        </button>
+                      </div>
+                      <div class="maplibregl-ctrl maplibregl-ctrl-group">
+                        <button
+                          class="maplibregl-ctrl-zoom-in"
+                          type="button"
+                          title="Zoom in"
+                          aria-label="Zoom in"
+                          aria-disabled="false"
+                        >
+                          <span
+                            class="maplibregl-ctrl-icon"
+                            aria-hidden="true"
+                          ></span></button
+                        ><button
+                          class="maplibregl-ctrl-zoom-out"
+                          type="button"
+                          title="Zoom out"
+                          aria-label="Zoom out"
+                          aria-disabled="false"
+                        >
+                          <span
+                            class="maplibregl-ctrl-icon"
+                            aria-hidden="true"
+                          ></span></button
+                        ><button
+                          class="maplibregl-ctrl-compass"
+                          type="button"
+                          title="Reset bearing to north"
+                          aria-label="Reset bearing to north"
+                        >
+                          <span
+                            class="maplibregl-ctrl-icon"
+                            aria-hidden="true"
+                            style="transform: rotate(0deg)"
+                          ></span>
+                        </button>
+                      </div>
+                      <div
+                        class="maplibregl-ctrl-geocoder maplibregl-ctrl maplibregl-ctrl-geocoder--collapsed"
+                      >
+                        <svg
+                          class="maplibregl-ctrl-geocoder--icon maplibregl-ctrl-geocoder--icon-search"
+                          viewBox="0 0 18 18"
+                          xml:space="preserve"
+                          width="18"
+                          height="18"
+                        >
+                          <path
+                            d="M7.4 2.5c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9c1 0 1.8-.2 2.5-.8l3.7 3.7c.2.2.4.3.8.3.7 0 1.1-.4 1.1-1.1 0-.3-.1-.5-.3-.8L11.4 10c.4-.8.8-1.6.8-2.5.1-2.8-2.1-5-4.8-5zm0 1.6c1.8 0 3.2 1.4 3.2 3.2s-1.4 3.2-3.2 3.2-3.3-1.3-3.3-3.1 1.4-3.3 3.3-3.3z"
+                          ></path></svg
+                        ><input
+                          type="text"
+                          class="maplibregl-ctrl-geocoder--input"
+                          placeholder="Search"
+                          aria-label="Search"
+                          style="pointer-events: none"
+                        />
+                        <div class="suggestions-wrapper">
+                          <ul class="suggestions" style="display: none"></ul>
+                        </div>
+                        <div class="maplibregl-ctrl-geocoder--pin-right">
+                          <button
+                            type="button"
+                            aria-label="Clear"
+                            class="maplibregl-ctrl-geocoder--button"
+                          >
+                            <svg
+                              class="maplibregl-ctrl-geocoder--icon maplibregl-ctrl-geocoder--icon-close"
+                              viewBox="0 0 18 18"
+                              xml:space="preserve"
+                              width="18"
+                              height="18"
+                            >
+                              <path
+                                d="M3.8 2.5c-.6 0-1.3.7-1.3 1.3 0 .3.2.7.5.8L7.2 9 3 13.2c-.3.3-.5.7-.5 1 0 .6.7 1.3 1.3 1.3.3 0 .7-.2 1-.5L9 10.8l4.2 4.2c.2.3.7.3 1 .3.6 0 1.3-.7 1.3-1.3 0-.3-.2-.7-.3-1l-4.4-4L15 4.6c.3-.2.5-.5.5-.8 0-.7-.7-1.3-1.3-1.3-.3 0-.7.2-1 .3L9 7.1 4.8 2.8c-.3-.1-.7-.3-1-.3z"
+                              ></path>
+                            </svg></button
+                          ><svg
+                            class="maplibregl-ctrl-geocoder--icon maplibregl-ctrl-geocoder--icon-loading"
+                            viewBox="0 0 18 18"
+                            xml:space="preserve"
+                            width="18"
+                            height="18"
+                          >
+                            <path
+                              fill="#333"
+                              d="M4.4 4.4l.8.8c2.1-2.1 5.5-2.1 7.6 0l.8-.8c-2.5-2.5-6.7-2.5-9.2 0z"
+                            ></path>
+                            <path
+                              opacity=".1"
+                              d="M12.8 12.9c-2.1 2.1-5.5 2.1-7.6 0-2.1-2.1-2.1-5.5 0-7.7l-.8-.8c-2.5 2.5-2.5 6.7 0 9.2s6.6 2.5 9.2 0 2.5-6.6 0-9.2l-.8.8c2.2 2.1 2.2 5.6 0 7.7z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          aria-label="Fullscreen"
+                          map="[object Object]"
+                          data-sentry-element="CustomTooltip"
+                          data-sentry-component="AppTooltip"
+                          data-sentry-source-file="AppTooltip.tsx"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-n60e6"
+                            tabindex="0"
+                            type="button"
+                            style="pointer-events: all"
+                          >
+                            <svg
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-style-vubbuv"
+                              focusable="false"
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              data-testid="FullscreenIcon"
+                              style="margin-top: 4px"
+                            >
+                              <path
+                                d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z"
+                              ></path></svg
+                            ><span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="mapboxgl-ctrl mapboxgl-ctrl-group maplibregl-ctrl maplibregl-ctrl-group"
+                          aria-label="Map legend"
+                          map="[object Object]"
+                          data-sentry-element="CustomTooltip"
+                          data-sentry-component="AppTooltip"
+                          data-sentry-source-file="AppTooltip.tsx"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-n60e6"
+                            tabindex="0"
+                            type="button"
+                            style="pointer-events: all"
+                          >
+                            <h5
+                              class="MuiTypography-root MuiTypography-h5 mui-style-1ky6uqg"
+                            >
+                              i
+                            </h5>
+                            <span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="maplibregl-ctrl-bottom-left">
+                      <div
+                        class="maplibregl-ctrl maplibregl-ctrl-scale"
+                        style="width: 85.64px"
+                      >
+                        50&nbsp;km
+                      </div>
+                    </div>
+                    <div class="maplibregl-ctrl-bottom-right">
+                      <details
+                        class="maplibregl-ctrl maplibregl-ctrl-attrib"
+                        open=""
+                      >
+                        <summary
+                          class="maplibregl-ctrl-attrib-button"
+                          title="Toggle attribution"
+                          aria-label="Toggle attribution"
+                        ></summary>
+                        <div class="maplibregl-ctrl-attrib-inner">
+                          © Fintraffic | © Maanmittauslaitos |
+                          <a
+                            href="https://www.openmaptiles.org/"
+                            target="_blank"
+                            >© OpenMapTiles</a
+                          >
+                          <a
+                            href="https://www.openstreetmap.org/copyright"
+                            target="_blank"
+                            >© OpenStreetMap contributors</a
+                          >
+                        </div>
+                      </details>
+                    </div>
+                  </div>
+                  <div mapboxgl-children="" style="height: 100%">
+                    <form
+                      data-sentry-component="UserPoiPropertiesDialog"
+                      data-sentry-source-file="NUserPoiPropertiesDialog.tsx"
+                    ></form>
+                    <input
+                      type="file"
+                      accept="image/*, .heic"
+                      style="display: none"
+                    />
+                  </div>
+                </div>
+                <div></div>
+                <div class="MuiBox-root mui-style-h62e4c">
+                  <div class="MuiBox-root mui-style-1jk5e5j">
+                    <div class="MuiBox-root mui-style-1xhj18k">
+                      <div
+                        class="MuiBox-root mui-style-17030id"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Length (km)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          162.8
+                        </h6>
+                      </div>
+                      <div
+                        class="MuiBox-root mui-style-6kzwkv"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Ascent (m)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          841
+                        </h6>
+                      </div>
+                      <div
+                        class="MuiBox-root mui-style-6kzwkv"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Descent (m)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          790
+                        </h6>
+                      </div>
+                    </div>
+                    <div class="MuiBox-root mui-style-1xhj18k">
+                      <hr
+                        class="MuiDivider-root MuiDivider-fullWidth MuiDivider-vertical MuiDivider-flexItem mui-style-xu9yol"
+                      />
+                      <div
+                        class="MuiBox-root mui-style-17ik2yc"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Asphalt (km)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          162
+                        </h6>
+                      </div>
+                      <div
+                        class="MuiBox-root mui-style-17ik2yc"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Unknown (km)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          0.4
+                        </h6>
+                      </div>
+                      <div
+                        class="MuiBox-root mui-style-17ik2yc"
+                        data-sentry-element="Box"
+                        data-sentry-component="StackedText"
+                        data-sentry-source-file="RouteInfoBar.tsx"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body2 mui-style-8lksgy"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          Fine gravel (km)
+                        </p>
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6 mui-style-11gfm28"
+                          data-sentry-element="Typography"
+                          data-sentry-source-file="RouteInfoBar.tsx"
+                        >
+                          0.2
+                        </h6>
+                      </div>
+                    </div>
+                    <div class="MuiBox-root mui-style-i9gxme"></div>
+                    <div class="MuiBox-root mui-style-oy17bp">
+                      <button
+                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium mui-style-175lui4"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <svg
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit mui-style-1cw4hi4"
+                          focusable="false"
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          data-testid="KeyboardArrowDownIcon"
+                        >
+                          <path
+                            d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"
+                          ></path></svg
+                        ><span
+                          class="MuiTouchRipple-root mui-style-w0pj6f"
+                        ></span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="MuiBox-root mui-style-dr2rqv">
+                    <div class="MuiBox-root mui-style-xz6lfn">
+                      <div class="MuiBox-root mui-style-1fw5kny">
+                        <div
+                          role="group"
+                          class="MuiButtonGroup-root MuiButtonGroup-outlined mui-style-13iz54z"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButtonGroup-firstButton mui-style-m9osw4"
+                            tabindex="0"
+                            type="button"
+                          >
+                            Surface<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span></button
+                          ><button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButtonGroup-lastButton mui-style-u72lb7"
+                            tabindex="0"
+                            type="button"
+                          >
+                            Warnings<span
+                              class="MuiTouchRipple-root mui-style-w0pj6f"
+                            ></span>
+                          </button>
+                        </div>
+                      </div>
+                      <canvas
+                        role="img"
+                        height="218"
+                        width="2260"
+                        style="
+                          display: block;
+                          box-sizing: border-box;
+                          height: 175px;
+                          width: 1808px;
+                        "
+                      ></canvas>
+                    </div>
+                    <div class="MuiBox-root mui-style-3t04x3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form
+              data-sentry-component="RouteSaveDialog"
+              data-sentry-source-file="RouteSaveDialog.tsx"
+            ></form>
+            <div
+              data-sentry-component="MapInfoDialog"
+              data-sentry-source-file="MapInfoDialog.tsx"
+            ></div>
+            <div></div>
+            <div
+              data-sentry-component="InfoDialog"
+              data-sentry-source-file="InfoDialog.tsx"
+            ></div>
+            <div></div>
+          </div>
+        </div>
+        <form></form>
+        <div></div>
+        <div id="DndDescribedBy-0" style="display: none">
+          To pick up a draggable item, press the space bar. While dragging, use
+          the arrow keys to move the item. Press space again to drop the item in
+          its new position, or press escape to cancel.
+        </div>
+        <div
+          id="DndLiveRegion-0"
+          role="status"
+          aria-live="assertive"
+          aria-atomic="true"
+          style="
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            border: 0px;
+            padding: 0px;
+            overflow: hidden;
+            clip: rect(0px, 0px, 0px, 0px);
+            clip-path: inset(100%);
+            white-space: nowrap;
+          "
+        ></div>
+        <div
+          role="presentation"
+          data-sentry-element="Dialog"
+          data-sentry-component="AppDialog"
+          data-sentry-source-file="AppDialog.tsx"
+          class="MuiDialog-root MuiModal-root MuiModal-hidden mui-style-1nx8rae"
+        >
+          <div
+            aria-hidden="true"
+            class="MuiBackdrop-root MuiModal-backdrop mui-style-1gapmhk"
+            style="opacity: 0; visibility: hidden"
+          ></div>
+          <div tabindex="-1" data-testid="sentinelStart"></div>
+          <div
+            class="MuiDialog-container MuiDialog-scrollPaper mui-style-ekeie0"
+            role="presentation"
+            tabindex="-1"
+            style="opacity: 0; visibility: hidden"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthLg MuiDialog-paperFullWidth mui-style-ctt717"
+              role="dialog"
+              aria-describedby="street-view-description"
+              aria-labelledby="street-view-title"
+            >
+              <div class="MuiDialogContent-root mui-style-671qke">
+                <div
+                  class="MuiBox-root mui-style-1sm2s1z"
+                  data-sentry-element="Box"
+                  data-sentry-component="GoogleStreetViewBody"
+                  data-sentry-source-file="GoogleStreetViewBody.tsx"
+                >
+                  <div
+                    class="MuiBox-root mui-style-30i7ej"
+                    data-sentry-element="Box"
+                    data-sentry-source-file="GoogleStreetViewBody.tsx"
+                  ></div>
+                  <div
+                    class="MuiBox-root mui-style-1bgbhem"
+                    data-sentry-element="Box"
+                    data-sentry-source-file="GoogleStreetViewBody.tsx"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="MuiDialogActions-root MuiDialogActions-spacing mui-style-1vskg8q"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary mui-style-kk01y3"
+                  tabindex="0"
+                  type="button"
+                >
+                  Close<span
+                    class="MuiTouchRipple-root mui-style-w0pj6f"
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div tabindex="-1" data-testid="sentinelEnd"></div>
+        </div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      crossorigin="anonymous"
+      src="https://api-ev.trailmap.fi/static/surveys.js?v=1.256.2"
+    ></script>
+    <script
+      type="text/javascript"
+      crossorigin="anonymous"
+      src="https://api-ev.trailmap.fi/static/dead-clicks-autocapture.js?v=1.256.2"
+    ></script>
+    <script
+      type="text/javascript"
+      crossorigin="anonymous"
+      src="https://api-ev.trailmap.fi/array/phc_BY9qY8Uq4WkRmVF7p8Ymp2biFXQorIF1LOOY2pWOdz6/config.js"
+    ></script>
+    <script id="__NEXT_DATA__" type="application/json" crossorigin="">
+      {
+        "props": { "pageProps": {} },
+        "page": "/",
+        "query": {},
+        "buildId": "DW0M6eB5pVX_pe8Cg5T0K",
+        "nextExport": true,
+        "autoExport": true,
+        "isFallback": false,
+        "scriptLoader": []
+      }
+    </script>
+    <script
+      async=""
+      src="https://unpkg.com/overpass-frontend@3.1.2/dist/overpass-frontend.js"
+    ></script>
+    <script
+      async=""
+      src="https://unpkg.com/overpass-layer@3.5.0/dist/overpass-layer.js"
+    ></script>
+    <next-route-announcer
+      ><p
+        aria-live="assertive"
+        id="__next-route-announcer__"
+        role="alert"
+        style="
+          border: 0px;
+          clip: rect(0px, 0px, 0px, 0px);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0px;
+          position: absolute;
+          top: 0px;
+          width: 1px;
+          white-space: nowrap;
+          overflow-wrap: normal;
+        "
+      ></p
+    ></next-route-announcer>
+  </body>
+</html>

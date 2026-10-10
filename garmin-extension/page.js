@@ -362,7 +362,7 @@
     if (!r) { return; }
     const route = dedupe(r.coords);
     if (route.length < 2) { return; }
-    state.busy = true;
+    state.busy = true; setSpin(true);
     const sig = signature(route);
     try {
       const simplified = simplify(route).map(([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)]);
@@ -377,7 +377,7 @@
       renderMarkers();
       renderPanelCounts();
     } catch (_) { /* leave previous results */ } finally {
-      state.busy = false;
+      state.busy = false; setSpin(false);
       if (state.rerun) { state.rerun = false; search(); }
     }
   }
@@ -474,6 +474,16 @@
 
   // ---------- panel ----------
   let panel, statusEl, countsEls = {};
+  let logoEl = null;
+  function setSpin(on) {
+    if (!document.getElementById("rs-spin-style")) {
+      const st = document.createElement("style");
+      st.id = "rs-spin-style";
+      st.textContent = "@keyframes rs-spin{to{transform:rotate(360deg)}}";
+      (document.head || document.documentElement).appendChild(st);
+    }
+    if (logoEl) logoEl.style.animation = on ? "rs-spin 1s linear infinite" : "";
+  }
 
   function setStatus() { if (statusEl) statusEl.textContent = `${state.items.length} places found`; }
 
@@ -498,7 +508,7 @@
     const logoUrl = document.documentElement.dataset.randoshopperLogo;
     if (logoUrl) {
       const img = document.createElement("img");
-      img.src = logoUrl; img.alt = ""; img.width = 22; img.height = 22;
+      logoEl = img; img.src = logoUrl; img.alt = ""; img.width = 22; img.height = 22;
       title.append(img);
     }
     title.append("Garminshopper");
