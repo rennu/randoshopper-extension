@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Shows shops, food, water, shelters and other services along the route in the Ride with GPS route planner.",
   "host_permissions": ["https://randoshopper.sloth.fi/*"],
+  "web_accessible_resources": [{ "resources": ["logo.svg"], "matches": ["https://ridewithgps.com/*", "https://www.ridewithgps.com/*"] }],
   "background": { "service_worker": "background.js" },
   "content_scripts": [
     {

@@ -38,7 +38,8 @@
     routeSource: null,
     networkRoute: null,
     items: [],
-    enabled: new Set(CATEGORIES.map((c) => c.id)),
+    hidden: false,
+    enabled: new Set(), // empty = no filtering
     padding: DEFAULT_PADDING,
     busy: false,
     auto: true,
@@ -262,15 +263,7 @@
   }
   hookNetwork();
 
-  function parseGpx(text) {
-    const doc = new DOMParser().parseFromString(text, "application/xml");
-    let nodes = [...doc.getElementsByTagName("trkpt")];
-    if (!nodes.length) nodes = [...doc.getElementsByTagName("rtept")];
-    return nodes.map((n) => [parseFloat(n.getAttribute("lon")), parseFloat(n.getAttribute("lat"))]);
-  }
-
   function currentRoute() {
-    if (state.manualRoute) return { coords: state.manualRoute, layer: "gpx-upload" };
     if (state.map) {
       const r = routeFromMap(state.map);
       if (r) return r;
@@ -327,14 +320,13 @@
   }
 
   async function search() {
-    if (state.busy) return;
+    if (state.busy) { state.rerun = true; return; }
     const r = currentRoute();
-    if (!r) { setStatus("No route found. Plan a route on the map, or load a GPX file."); return; }
+    if (!r) { return; }
     const route = dedupe(r.coords);
-    if (route.length < 2) { setStatus("Route is too short."); return; }
+    if (route.length < 2) { return; }
     state.busy = true;
     const sig = signature(route);
-    setStatus("Searching along route…");
     try {
       const simplified = simplify(route).map(([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)]);
       const payload = {
@@ -344,13 +336,12 @@
       const data = await callBackend(payload);
       state.items = toItems(data);
       state.lastSearchedSig = sig;
-      setStatus(`${state.items.length} places found (${simplified.length} route points, source: ${r.layer}).`);
+      setStatus();
       renderMarkers();
       renderPanelCounts();
-    } catch (e) {
-      setStatus("Error: " + e.message);
-    } finally {
+    } catch (_) { /* leave previous results */ } finally {
       state.busy = false;
+      if (state.rerun) { state.rerun = false; search(); }
     }
   }
 
@@ -410,8 +401,8 @@
     markerEls.forEach((m) => m.el.remove());
     markerEls = [];
     const frag = document.createDocumentFragment();
-    for (const item of state.items) {
-      if (!state.enabled.has(item.cat.id)) continue;
+    for (const item of state.hidden ? [] : state.items) {
+      if (state.enabled.size && !state.enabled.has(item.cat.id)) continue;
       const el = document.createElement("div");
       el.textContent = item.cat.icon;
       el.title = item.tags.name ? `${item.tags.name} (${item.cat.label})` : item.cat.label;
@@ -442,7 +433,7 @@
   // ---------- panel ----------
   let panel, statusEl, countsEls = {};
 
-  function setStatus(s) { if (statusEl) statusEl.textContent = s; }
+  function setStatus() { if (statusEl) statusEl.textContent = `${state.items.length} places found`; }
 
   function renderPanelCounts() {
     const counts = {};
@@ -453,31 +444,71 @@
   function buildPanel() {
     if (panel || !document.body) return;
     panel = document.createElement("div");
-    panel.style.cssText = "position:fixed;left:12px;bottom:12px;z-index:2147483000;background:#fff;color:#222;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.4);font:13px/1.4 sans-serif;    width:230px;max-height:70vh;display:flex;flex-direction:column;";
-        const header = document.createElement("div");
-        header.style.cssText = "padding:8px 10px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;";
-        header.innerHTML = "<span>🛒 Randoshopper</span><span>▾</span>";
-        const body = document.createElement("div");
-        body.style.cssText = "padding:0 10px 10px;overflow:auto;";
-        header.addEventListener("click", () => { body.style.display = body.style.display === "none" ? "" : "none"; });
+    panel.style.cssText = "box-sizing:border-box;width:100%;padding:12px 16px;color:inherit;font-size:13px;line-height:1.4;";
+    const sep = document.createElement("hr");
+    sep.style.cssText = "margin:0 0 8px;border:0;border-top:1px solid rgba(128,128,128,.35);";
+    const header = document.createElement("div");
+    header.style.cssText = "padding:4px 0;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;user-select:none;";
+    const arrow = document.createElement("span");
+    arrow.textContent = "▾";
+    const title = document.createElement("span");
+    title.style.cssText = "display:flex;align-items:center;gap:6px;";
+    const logoUrl = document.documentElement.dataset.randoshopperLogo;
+    if (logoUrl) {
+      const img = document.createElement("img");
+      img.src = logoUrl; img.alt = ""; img.width = 22; img.height = 22;
+      title.append(img);
+    }
+    title.append("Randoshopper");
+    header.appendChild(title);
+    header.appendChild(arrow);
+    const body = document.createElement("div");
+    body.style.cssText = "padding-top:6px;";
+    header.addEventListener("click", () => {
+      const hidden = body.style.display === "none";
+      body.style.display = hidden ? "" : "none";
+      arrow.textContent = hidden ? "▾" : "▸";
+    });
 
     statusEl = document.createElement("div");
     statusEl.style.cssText = "color:#555;margin-bottom:6px;font-size:12px;";
-    statusEl.textContent = "Waiting for map…";
+    statusEl.textContent = "0 places found";
 
     const row = document.createElement("div");
     row.style.cssText = "display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap;";
     const btn = document.createElement("button");
     btn.textContent = "Search route";
-    btn.style.cssText = "padding:4px 8px;cursor:pointer;";
-    btn.addEventListener("click", () => { state.manualRoute = null; search(); });
+    btn.style.cssText = "box-sizing:border-box;height:28px;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    btn.addEventListener("click", () => { search(); });
     const pad = document.createElement("input");
     pad.type = "number"; pad.min = 100; pad.max = 10000; pad.step = 100; pad.value = state.padding;
     pad.title = "Search distance from route (m)";
-    pad.style.cssText = "width:64px;";
-    pad.addEventListener("change", () => { state.padding = Math.max(100, +pad.value || DEFAULT_PADDING); state.lastSearchedSig = null; });
+    pad.style.cssText = "box-sizing:border-box;height:28px;width:64px;padding:0 6px;line-height:1;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    let padTimer;
+    pad.addEventListener("input", () => {
+      clearTimeout(padTimer);
+      padTimer = setTimeout(() => {
+        const v = Math.min(10000, Math.max(100, +pad.value || DEFAULT_PADDING));
+        pad.value = v;
+        if (v === state.padding) return;
+        state.padding = v;
+        state.items = [];
+        renderMarkers();
+        renderPanelCounts();
+        setStatus();
+        search();
+      }, 1000);
+    });
     const m = document.createElement("span"); m.textContent = "m";
-    row.append(btn, pad, m);
+    const hideBtn = document.createElement("button");
+    hideBtn.textContent = "Hide all";
+    hideBtn.style.cssText = "box-sizing:border-box;height:28px;padding:0 8px;line-height:1;cursor:pointer;border:1px solid rgba(128,128,128,.4);border-radius:4px;";
+    hideBtn.addEventListener("click", () => {
+      state.hidden = !state.hidden;
+      hideBtn.textContent = state.hidden ? "Show all" : "Hide all";
+      renderMarkers();
+    });
+    row.append(btn, hideBtn, pad, m);
 
     const row2 = document.createElement("div");
     row2.style.cssText = "margin-bottom:6px;";
@@ -486,25 +517,17 @@
     autoCb.type = "checkbox"; autoCb.checked = state.auto;
     autoCb.addEventListener("change", () => { state.auto = autoCb.checked; });
     auto.append(autoCb, " Auto-update when route changes");
-    const gpx = document.createElement("input");
-    gpx.type = "file"; gpx.accept = ".gpx"; gpx.style.cssText = "display:block;width:100%;margin-top:4px;font-size:11px;";
-    gpx.title = "Fallback: load a GPX route";
-    gpx.addEventListener("change", async () => {
-      const f = gpx.files[0];
-      if (!f) return;
-      const pts = parseGpx(await f.text());
-      if (pts.length < 2) { setStatus("No track points in GPX."); return; }
-      state.manualRoute = pts;
-      search();
-    });
-    row2.append(auto, gpx);
+    row2.append(auto);
 
+    const filtersTitle = document.createElement("div");
+    filtersTitle.textContent = "Filters";
+    filtersTitle.style.cssText = "font-weight:600;margin:8px 0 4px;";
     const list = document.createElement("div");
     CATEGORIES.forEach((c) => {
       const lab = document.createElement("label");
       lab.style.cssText = "display:flex;align-items:center;gap:4px;padding:1px 0;cursor:pointer;";
       const cb = document.createElement("input");
-      cb.type = "checkbox"; cb.checked = true;
+      cb.type = "checkbox"; cb.checked = false;
       cb.addEventListener("change", () => {
         cb.checked ? state.enabled.add(c.id) : state.enabled.delete(c.id);
         renderMarkers();
@@ -518,32 +541,44 @@
       list.appendChild(lab);
     });
 
-    body.append(statusEl, row, row2, list);
-    panel.append(header, body);
-    document.body.appendChild(panel);
+    body.append(statusEl, row, row2, filtersTitle, list);
+    panel.append(sep, header, body);
+  }
+
+  // Komoot's css-* class names are hashed, so anchor on #side-panel and use its structure:
+  // side-panel > scroll container > wrapper > sections. Falls back to #side-panel itself.
+  function mountPanel(onPlan) {
+    const sp = onPlan ? document.querySelector("#side-panel") : null;
+    if (!sp) {
+      if (panel && panel.isConnected) panel.remove();
+      return;
+    }
+    buildPanel();
+    const host = sp.children[1]?.firstElementChild?.firstElementChild || sp;
+    if (panel.parentNode !== host || host.lastElementChild !== panel) host.appendChild(panel);
   }
 
   // ---------- main loop ----------
   function clearResults() {
     clearTimeout(state.debounce);
     state.items = [];
-    state.manualRoute = null;
     state.networkRoute = null;
     state.routeSig = state.lastSearchedSig = null;
     renderMarkers();
     renderPanelCounts();
-    setStatus("Plan a route to search along it.");
+    setStatus();
   }
 
   function tick() {
-    buildPanel();
-    if (!/\/plan(\/|$)/.test(location.pathname)) {
-      if (state.items.length || state.manualRoute) clearResults();
+    const onPlan = /\/plan(\/|$)/.test(location.pathname);
+    mountPanel(onPlan);
+    if (!onPlan) {
+      if (state.items.length) clearResults();
       return;
     }
     if (!state.map || !state.map.getStyle) {
       state.map = findMap();
-      if (state.map) { setStatus("Map found. Plan a route."); ensureOverlay(); renderMarkers(); }
+      if (state.map) {  ensureOverlay(); renderMarkers(); }
     } else if (overlay && !overlay.isConnected) {
       overlay = null;
       ensureOverlay();
@@ -562,7 +597,6 @@
         clearTimeout(state.debounce);
         state.debounce = setTimeout(() => { if (state.routeSig !== state.lastSearchedSig) search(); }, 1500);
       } else {
-        setStatus("Route changed. Press “Search route”.");
       }
     }
   }

@@ -6,7 +6,7 @@ Test data: `test-data\` (`payload-to-server.json` = request shape, `response-fro
 
 ## Architecture (same in both extensions)
 - `page.js` – runs in the page's MAIN world (`run_at: document_start`). Does everything: finds the map object, reads the route, builds the payload, draws markers/popups and the side panel. No extension APIs available here.
-- `relay.js` – isolated-world bridge. Forwards `window.postMessage` `randoshopper-request` -> `chrome.runtime.sendMessage` and replies with `randoshopper-response`.
+- `relay.js` – isolated-world bridge. Forwards `window.postMessage` `randoshopper-request` -> `chrome.runtime.sendMessage` and replies with `randoshopper-response`. Also exposes the logo URL to `page.js` via `document.documentElement.dataset.randoshopperLogo` (`logo.svg` is a web_accessible_resource; master copy in `icons\logo.svg`, copied into both extension folders).
 - `background.js` – service worker. POSTs the payload to `https://randoshopper.sloth.fi/api/route` (host permission in `manifest.json`) and returns the JSON.
 - Backend gets the simplified route; replies GeoJSON; `toItems()` in `page.js` filters features into categories.
 
@@ -15,8 +15,11 @@ Test data: `test-data\` (`payload-to-server.json` = request shape, `response-fro
 - geometry helpers: `simplify`, `dedupe`, `signature`.
 - finding the map: RWGPS uses a Mapbox/MapLibre GL map. Captured by an `Object.prototype._listeners` setter hook and a `Function.prototype.bind` hook, with `scanForMap` as fallback.
 - reading the route: `routeFromMap(map)` reads only `geojson` sources (route is a UUID-named GeoJSON source; layers `<uuid>_1_target/_casing/_paved/_unpaved/_unknown`). Basemap is vector (`rwgps:vector`) and must be ignored (an earlier bug picked `path_track_access_no_outer`). Falls back to `querySourceFeatures`, then to `networkRoute` sniffed from fetch/XHR JSON (`hookNetwork`).
-- backend, markers, panel (minimized by default, shown only in the planner/edit view), main loop `tick()` every 1500 ms.
+- panel: injected into the right sidebar (`[class*="_PlannerSidebar_"]`, class names are hashed so match on the prefix; sample HTML in `test-data\rwgps-menu.html`) just before the `[class*="_aboveClearAll_"]` hr, i.e. above "Delete All" (falls back to appending at the end of the sidebar). `mountPanel()` in `tick()` re-attaches it after React re-renders and removes it outside the planner. Open by default.
+- backend, markers, main loop `tick()` every 1500 ms.
 - Planner URLs matched by `/routes/(new|<id>/edit)`.
+
+- Komoot panel: same idea, mounted by `mountPanel()` into `#side-panel` (stable id; css-* classes are hashed), inside `side-panel > scroll container > wrapper` after the last section; sample HTML in `test-data\komoot-menu.html`. Only on `/plan`. Open by default.
 
 ## Workflow when changing something
 1. Read the relevant section of `page.js` (use grep for the section comment, then view a range).

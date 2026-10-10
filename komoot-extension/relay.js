@@ -10,3 +10,6 @@ window.addEventListener("message", (ev) => {
     );
   });
 });
+
+// Lets the page-world script find the logo URL (it has no chrome.* access).
+document.documentElement.dataset.randoshopperLogo = chrome.runtime.getURL("logo.svg");
