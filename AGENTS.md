@@ -20,6 +20,7 @@ Test data: `test-data\` (`payload-to-server.json` = request shape, `response-fro
 - Planner URLs matched by `/routes/(new|<id>/edit)`.
 
 - Komoot panel: same idea, mounted by `mountPanel()` into `#side-panel` (stable id; css-* classes are hashed), inside `side-panel > scroll container > wrapper` after the last section; sample HTML in `test-data\komoot-menu.html`. Only on `/plan`. Open by default.
+- Garmin panel (`garmin-extension\`, "Garminshopper", copied from rwgps-extension): mounted by `mountPanel()` right after the "Course Options" section (`[class*="RoutingOptions_titleWithEdit"]`.parentElement); sample HTML in `test-data\garmin-connect-menu.html`. The panel only exists while that section exists, which doubles as the "in planner" check. The map is **Leaflet** (`test-data\garmin-connect-full.html`): captured via `Object.prototype._mapToAdd`/`_map` setters, with a React fiber fallback; markers use `latLngToContainerPoint`; `routeFromMap` chains connected polylines from `map.eachLayer`. Unverified on the live site.
 
 ## Workflow when changing something
 1. Read the relevant section of `page.js` (use grep for the section comment, then view a range).
