@@ -1,0 +1,14 @@
+{
+  "route": {
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [60.244772, 24.94659],
+        [60.228729, 24.824308]
+      ]
+    }
+  },
+  "searchAreaPadding": 1500
+}
