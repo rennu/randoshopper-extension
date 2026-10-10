@@ -42,7 +42,7 @@
     enabled: new Set(), // empty = no filtering
     padding: DEFAULT_PADDING,
     busy: false,
-    auto: true,
+    auto: false,
     lastSearchedSig: null,
     debounce: null,
   };
@@ -580,7 +580,7 @@
   }
 
   function tick() {
-    const onPlan = /\/plan(\/|$)/.test(location.pathname);
+    const onPlan = /\/(plan|tour)(\/|$)/.test(location.pathname);
     mountPanel(onPlan);
     if (!onPlan) {
       if (state.items.length) clearResults();

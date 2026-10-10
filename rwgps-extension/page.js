@@ -42,7 +42,7 @@
     enabled: new Set(), // empty = no filtering
     padding: DEFAULT_PADDING,
     busy: false,
-    auto: true,
+    auto: false,
     lastSearchedSig: null,
     debounce: null,
   };
