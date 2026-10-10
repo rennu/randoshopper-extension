@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Randoshopper for Ride with GPS",
+  "name": "Ridewithshopper",
   "version": "1.0.0",
   "description": "Shows shops, food, water, shelters and other services along the route in the Ride with GPS route planner.",
   "host_permissions": ["https://randoshopper.sloth.fi/*"],

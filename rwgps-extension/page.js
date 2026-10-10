@@ -523,7 +523,7 @@
       img.src = logoUrl; img.alt = ""; img.width = 22; img.height = 22;
       title.append(img);
     }
-    title.append("Randoshopper");
+    title.append("Ridewithshopper");
     header.appendChild(title);
     header.appendChild(arrow);
     const body = document.createElement("div");
