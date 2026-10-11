@@ -43,6 +43,7 @@
     padding: DEFAULT_PADDING,
     busy: false,
     auto: false,
+    only24h: false,
     lastSearchedSig: null,
     debounce: null,
   };
@@ -467,6 +468,7 @@
     const frag = document.createDocumentFragment();
     for (const item of state.hidden ? [] : state.items) {
       if (state.enabled.size && !state.enabled.has(item.cat.id)) continue;
+      if (state.only24h && String(item.tags.opening_hours || "").trim() !== "24/7") continue;
       const el = document.createElement("div");
       el.textContent = item.cat.icon;
       el.title = item.tags.name ? `${item.tags.name} (${item.cat.label})` : item.cat.label;
@@ -615,7 +617,16 @@
       list.appendChild(lab);
     });
 
-    body.append(statusEl, row, row2, filtersTitle, list);
+    const open24 = document.createElement("label");
+    const open24Cb = document.createElement("input");
+    open24Cb.type = "checkbox"; open24Cb.checked = state.only24h;
+    open24Cb.addEventListener("change", () => { state.only24h = open24Cb.checked; renderMarkers(); });
+    const open24Txt = document.createElement("span"); open24Txt.textContent = "Open 24/7 only";
+    open24.append(open24Cb, open24Txt);
+    const firstLab = list.firstElementChild;
+    if (firstLab) { open24.className = firstLab.className; open24.style.cssText = firstLab.style.cssText; }
+    body.append(statusEl, row, row2, filtersTitle, open24, list);
+
     panel.append(sep, header, body);
   }
 
