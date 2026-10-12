@@ -458,7 +458,17 @@
 
   function buildPanel() {
     if (panel || !document.body) return;
-    panel = document.createElement("div");
+    if (!document.getElementById("rs-switch-style")) {
+      const st = document.createElement("style");
+      st.id = "rs-switch-style";
+      st.textContent = `
+        .rs-switch { appearance: none; -webkit-appearance: none; flex: none; box-sizing: border-box; width: 30px; height: 16px; margin: 0 8px 0 0; border-radius: 999px; background: #8c8c8c; position: relative; cursor: pointer; transition: background-color .2s; }
+        .rs-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.3); transition: transform .2s; }
+        .rs-switch:checked { background: #0b5cc2; }
+        .rs-switch:checked::after { transform: translateX(14px); }
+      `;
+      document.head.appendChild(st);
+    }    panel = document.createElement("div");
     panel.style.cssText = "box-sizing:border-box;width:100%;padding:12px 0;color:inherit;font-family:inherit;font-size:14px;line-height:1.4;";
     const header = document.createElement("div");
     header.style.cssText = "padding:4px 0;font-weight:500;font-size:16px;cursor:pointer;display:flex;justify-content:space-between;user-select:none;";
@@ -526,10 +536,11 @@
     const row2 = document.createElement("div");
     row2.style.cssText = "margin-bottom:6px;";
     const auto = document.createElement("label");
+    auto.style.cssText = "display:flex;align-items:center;cursor:pointer;";
     const autoCb = document.createElement("input");
-    autoCb.type = "checkbox"; autoCb.checked = state.auto;
+    autoCb.className = "rs-switch"; autoCb.type = "checkbox"; autoCb.checked = state.auto;
     autoCb.addEventListener("change", () => { state.auto = autoCb.checked; });
-    auto.append(autoCb, " Auto-update when route changes");
+    auto.append(autoCb, "Auto-update when route changes");
     row2.append(auto);
 
     const filtersTitle = document.createElement("div");
@@ -540,7 +551,7 @@
       const lab = document.createElement("label");
       lab.style.cssText = "display:flex;align-items:center;gap:4px;padding:1px 0;cursor:pointer;";
       const cb = document.createElement("input");
-      cb.type = "checkbox"; cb.checked = false;
+      cb.className = "rs-switch"; cb.type = "checkbox"; cb.checked = false;
       cb.addEventListener("change", () => {
         cb.checked ? state.enabled.add(c.id) : state.enabled.delete(c.id);
         renderMarkers();
@@ -556,7 +567,7 @@
 
     const open24 = document.createElement("label");
     const open24Cb = document.createElement("input");
-    open24Cb.type = "checkbox"; open24Cb.checked = state.only24h;
+    open24Cb.className = "rs-switch"; open24Cb.type = "checkbox"; open24Cb.checked = state.only24h;
     open24Cb.addEventListener("change", () => { state.only24h = open24Cb.checked; renderMarkers(); });
     const open24Txt = document.createElement("span"); open24Txt.textContent = "Open 24/7 only";
     open24.append(open24Cb, open24Txt);
