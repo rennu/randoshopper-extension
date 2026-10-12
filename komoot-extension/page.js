@@ -569,7 +569,9 @@
   // Komoot's css-* class names are hashed, so anchor on #side-panel and use its structure:
   // side-panel > scroll container > wrapper > sections. Falls back to #side-panel itself.
   function mountPanel(onPlan) {
-    const sp = onPlan ? document.querySelector("#side-panel") : null;
+    let sp = onPlan ? document.querySelector("#side-panel") : null;
+    // The route editor controls are missing while a POI/highlight is open in the side panel.
+    if (sp && !sp.querySelector('[data-test-id="activity-dropdown"]')) sp = null;
     if (!sp) {
       if (panel && panel.isConnected) panel.remove();
       return;
