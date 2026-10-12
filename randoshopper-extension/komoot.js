@@ -534,7 +534,7 @@
     row.append(btn, hideBtn, pad, m);
 
     const row2 = document.createElement("div");
-    row2.style.cssText = "margin-bottom:6px;";
+    row2.style.cssText = "margin:8px 0;";
     const auto = document.createElement("label");
     auto.style.cssText = "display:flex;align-items:center;cursor:pointer;";
     const autoCb = document.createElement("input");
@@ -549,7 +549,7 @@
     const list = document.createElement("div");
     CATEGORIES.forEach((c) => {
       const lab = document.createElement("label");
-      lab.style.cssText = "display:flex;align-items:center;gap:4px;padding:1px 0;cursor:pointer;";
+      lab.style.cssText = "display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;";
       const cb = document.createElement("input");
       cb.className = "rs-switch"; cb.type = "checkbox"; cb.checked = false;
       cb.addEventListener("change", () => {
