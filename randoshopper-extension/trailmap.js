@@ -44,6 +44,7 @@
     busy: false,
     auto: false,
     only24h: false,
+    nameQuery: "",
     lastSearchedSig: null,
     debounce: null,
   };
@@ -453,7 +454,7 @@
       .rs-count { color: rgba(0,0,0,.6); }
       .rs-popup { box-sizing: border-box; background: #fff; border-radius: 4px; padding: 12px 36px 12px 16px; font-size: .875rem; line-height: 1.43; box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12); }
       .rs-title { font-size: 1rem; font-weight: 500; line-height: 1.5; }
-      .rs-sub { color: rgba(0,0,0,.6); margin-bottom: 4px; }
+      .rs-sub { color: rgba(0,0,0,.6); margin-bottom: 8px; }
       .rs-close { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 50%; font-size: 14px; color: rgba(0,0,0,.54); cursor: pointer; }
       .rs-close:hover { background: rgba(0,0,0,.04); }
       .rs-links { margin-top: 8px; display: flex; gap: 16px; flex-wrap: wrap; }
@@ -470,17 +471,18 @@
     popup.className = "rs-popup";
     popup.style.cssText = "position:absolute;transform:translate(-50%,-130%);width:max-content;min-width:200px;max-width:340px;pointer-events:auto;z-index:10;";
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    let html = `<div class="rs-title">${item.cat.icon} ${esc(t.name || item.cat.label)}</div><span data-close class="rs-close">✕</span>`;
+    let html = `<div class="rs-title">${esc(t.name || item.cat.label)}</div><span data-close class="rs-close">✕</span>`;
     if (t.name) html += `<div class="rs-sub">${esc(item.cat.label)}</div>`;
-    if (t.opening_hours) html += `<div>🕒 ${esc(t.opening_hours)}</div>`;
-    if (t.phone) html += `<div>📞 ${esc(t.phone)}</div>`;
+    if (t.opening_hours) html += `<div><b>Opening hours:</b> ${esc(t.opening_hours)}</div>`;
+    if (t["opening_hours:drive_through"]) html += `<div><b>Drive-through:</b> ${esc(t["opening_hours:drive_through"])}</div>`;
+    if (t.phone) html += `<div><b>Phone:</b> ${esc(t.phone)}</div>`;
     let site = t.website || t["contact:website"] || t.url;
     if (site && !/^https?:\/\//i.test(site)) site = /^[\w-]+(\.[\w-]+)+/.test(site) ? "https://" + site : null;
     const links = [];
-    if (site) links.push(`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🌐 Website</a>`);
+    if (site) links.push(`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Website</a>`);
     const gmaps = `https://www.google.com/maps/search/?api=1&query=${item.pos[1]},${item.pos[0]}`;
-    links.push(`<a href="${gmaps}" target="_blank" rel="noopener noreferrer">📍 Google Maps</a>`);
-    html += `<div class="rs-links">${links.join("")}</div>`;
+    links.push(`<a href="${gmaps}" target="_blank" rel="noopener noreferrer">Google Maps</a>`);
+    html += `<div style="margin-top:8px"><b>More information</b></div><div class="rs-links" style="display:flex;flex-direction:column;gap:2px;">${links.join("")}</div>`;
     popup.innerHTML = html;
     popup.querySelector("[data-close]").addEventListener("click", (e) => { e.stopPropagation(); closePopup(); });
     popup.addEventListener("click", (e) => e.stopPropagation());
@@ -503,7 +505,8 @@
     const frag = document.createDocumentFragment();
     for (const item of state.hidden ? [] : state.items) {
       if (state.enabled.size && !state.enabled.has(item.cat.id)) continue;
-      if (state.only24h && String(item.tags.opening_hours || "").trim() !== "24/7") continue;
+      if (state.nameQuery && !String(item.tags.name || "").toLowerCase().includes(state.nameQuery)) continue;
+      if (state.only24h && !["opening_hours", "opening_hours:drive_through"].some((k) => String(item.tags[k] || "").trim() === "24/7")) continue;
       const el = document.createElement("div");
       el.textContent = item.cat.icon;
       el.title = item.tags.name ? `${item.tags.name} (${item.cat.label})` : item.cat.label;
@@ -560,12 +563,10 @@
     injectStyles();
     panel.classList.add("rs-panel");
     panel.style.cssText = "box-sizing:border-box;width:100%;";
-    const sep = document.createElement("hr");
-    sep.style.cssText = "display:none;";
     const header = document.createElement("div");
     header.className = "rs-header";
     const arrow = document.createElement("span");
-    arrow.textContent = "▾";
+    arrow.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:block;transition:transform .2s;transform:rotate(180deg)"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>';
     arrow.className = "rs-arrow";
     const title = document.createElement("span");
     title.style.cssText = "display:flex;align-items:center;gap:6px;";
@@ -583,7 +584,7 @@
     header.addEventListener("click", () => {
       const hidden = body.style.display === "none";
       body.style.display = hidden ? "" : "none";
-      arrow.textContent = hidden ? "▾" : "▸";
+      arrow.firstElementChild.style.transform = hidden ? "rotate(180deg)" : "";
     });
 
     statusEl = document.createElement("div");
@@ -665,9 +666,21 @@
     open24.append(open24Cb, open24Txt);
     const firstLab = list.firstElementChild;
     if (firstLab) { open24.className = firstLab.className; open24.style.cssText = firstLab.style.cssText; }
-    body.append(statusEl, row, row2, filtersTitle, open24, list);
+    const nameBox = document.createElement("input");
+    nameBox.type = "search";
+    nameBox.placeholder = "Search by name";
+    nameBox.className = pad.className;
+    nameBox.style.cssText = pad.style.cssText;
+    nameBox.style.width = "100%";
+    nameBox.style.margin = "0 0 6px";
+    let nameTimer;
+    nameBox.addEventListener("input", () => {
+      clearTimeout(nameTimer);
+      nameTimer = setTimeout(() => { state.nameQuery = nameBox.value.trim().toLowerCase(); renderMarkers(); }, 250);
+    });
+    body.append(statusEl, row, row2, filtersTitle, nameBox, open24, list);
 
-    panel.append(sep, header, body);
+    panel.append(header, body);
   }
 
   // Sits as an accordion right after the site's own accordions (Summary, Warnings, Route places).

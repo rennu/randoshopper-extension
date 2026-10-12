@@ -44,6 +44,7 @@
     busy: false,
     auto: false,
     only24h: false,
+    nameQuery: "",
     lastSearchedSig: null,
     debounce: null,
   };
@@ -434,17 +435,18 @@
     popup = document.createElement("div");
     popup.style.cssText = "position:absolute;transform:translate(-50%,-130%);background:#fff;color:#222;padding:8px 10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.35);font:13px/1.35 sans-serif;width:max-content;min-width:200px;max-width:340px;pointer-events:auto;z-index:10;";
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    let html = `<b>${item.cat.icon} ${esc(t.name || item.cat.label)}</b><span data-close style="position:absolute;top:2px;right:6px;cursor:pointer;font-size:16px;line-height:1;color:#666;">×</span>`;
-    if (t.name) html += `<div style="color:#666">${esc(item.cat.label)}</div>`;
-    if (t.opening_hours) html += `<div>🕒 ${esc(t.opening_hours)}</div>`;
-    if (t.phone) html += `<div>📞 ${esc(t.phone)}</div>`;
+    let html = `<b>${esc(t.name || item.cat.label)}</b><span data-close style="position:absolute;top:2px;right:6px;cursor:pointer;font-size:16px;line-height:1;color:#666;">×</span>`;
+    if (t.name) html += `<div style="color:#666;margin-bottom:8px">${esc(item.cat.label)}</div>`;
+    if (t.opening_hours) html += `<div><b>Opening hours:</b> ${esc(t.opening_hours)}</div>`;
+    if (t["opening_hours:drive_through"]) html += `<div><b>Drive-through:</b> ${esc(t["opening_hours:drive_through"])}</div>`;
+    if (t.phone) html += `<div><b>Phone:</b> ${esc(t.phone)}</div>`;
     let site = t.website || t["contact:website"] || t.url;
     if (site && !/^https?:\/\//i.test(site)) site = /^[\w-]+(\.[\w-]+)+/.test(site) ? "https://" + site : null;
     const links = [];
-    if (site) links.push(`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🌐 Website</a>`);
+    if (site) links.push(`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Website</a>`);
     const gmaps = `https://www.google.com/maps/search/?api=1&query=${item.pos[1]},${item.pos[0]}`;
-    links.push(`<a href="${gmaps}" target="_blank" rel="noopener noreferrer">📍 Google Maps</a>`);
-    html += `<div style="margin-top:4px;display:flex;gap:10px;">${links.join("")}</div>`;
+    links.push(`<a href="${gmaps}" target="_blank" rel="noopener noreferrer">Google Maps</a>`);
+    html += `<div style="margin-top:8px"><b>More information</b></div><div class="rs-links" style="display:flex;flex-direction:column;gap:2px;">${links.join("")}</div>`;
     popup.innerHTML = html;
     popup.style.paddingRight = "22px";
     popup.querySelector("[data-close]").addEventListener("click", (e) => { e.stopPropagation(); closePopup(); });
@@ -468,7 +470,8 @@
     const frag = document.createDocumentFragment();
     for (const item of state.hidden ? [] : state.items) {
       if (state.enabled.size && !state.enabled.has(item.cat.id)) continue;
-      if (state.only24h && String(item.tags.opening_hours || "").trim() !== "24/7") continue;
+      if (state.nameQuery && !String(item.tags.name || "").toLowerCase().includes(state.nameQuery)) continue;
+      if (state.only24h && !["opening_hours", "opening_hours:drive_through"].some((k) => String(item.tags[k] || "").trim() === "24/7")) continue;
       const el = document.createElement("div");
       el.textContent = item.cat.icon;
       el.title = item.tags.name ? `${item.tags.name} (${item.cat.label})` : item.cat.label;
@@ -521,12 +524,10 @@
     if (panel || !document.body) return;
     panel = document.createElement("div");
     panel.style.cssText = "box-sizing:border-box;width:100%;padding:8px 0 12px;color:inherit;font-family:inherit;font-size:14px;line-height:1.4;";
-    const sep = document.createElement("hr");
-    sep.style.cssText = "margin:0 0 8px;";
     const header = document.createElement("div");
     header.style.cssText = "padding:4px 0;font-weight:500;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;user-select:none;";
     const arrow = document.createElement("span");
-    arrow.textContent = "▾";
+    arrow.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:block;transition:transform .2s;transform:rotate(180deg)"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>';
     const title = document.createElement("span");
     title.style.cssText = "display:flex;align-items:center;gap:6px;";
     const logoUrl = document.documentElement.dataset.randoshopperLogo;
@@ -543,7 +544,7 @@
     header.addEventListener("click", () => {
       const hidden = body.style.display === "none";
       body.style.display = hidden ? "" : "none";
-      arrow.textContent = hidden ? "▾" : "▸";
+      arrow.firstElementChild.style.transform = hidden ? "rotate(180deg)" : "";
     });
 
     statusEl = document.createElement("div");
@@ -554,12 +555,12 @@
     row.style.cssText = "display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap;";
     const btn = document.createElement("button");
     btn.textContent = "Search route";
-    btn.style.cssText = "padding:4px 8px;cursor:pointer;font:inherit;";
+    btn.style.cssText = "box-sizing:border-box;height:40px;padding:0 16px;font:inherit;color:#333;background:#fff;border:1px solid #b5b5b5;border-radius:4px;cursor:pointer;";
     btn.addEventListener("click", () => { search(); });
     const pad = document.createElement("input");
     pad.type = "number"; pad.min = 100; pad.max = 10000; pad.step = 100; pad.value = state.padding;
     pad.title = "Search distance from route (m)";
-    pad.style.cssText = "width:64px;font:inherit;";
+    pad.style.cssText = "box-sizing:border-box;width:84px;height:40px;padding:0 12px;font:inherit;color:#333;background:#fff;border:1px solid #b5b5b5;border-radius:4px;";
     let padTimer;
     pad.addEventListener("input", () => {
       clearTimeout(padTimer);
@@ -578,7 +579,7 @@
     const m = document.createElement("span"); m.textContent = "m";
     const hideBtn = document.createElement("button");
     hideBtn.textContent = "Hide all";
-    hideBtn.style.cssText = "padding:4px 8px;cursor:pointer;font:inherit;";
+    hideBtn.style.cssText = "box-sizing:border-box;height:40px;padding:0 16px;font:inherit;color:#333;background:#fff;border:1px solid #b5b5b5;border-radius:4px;cursor:pointer;";
     hideBtn.addEventListener("click", () => {
       state.hidden = !state.hidden;
       hideBtn.textContent = state.hidden ? "Show all" : "Hide all";
@@ -625,9 +626,23 @@
     open24.append(open24Cb, open24Txt);
     const firstLab = list.firstElementChild;
     if (firstLab) { open24.className = firstLab.className; open24.style.cssText = firstLab.style.cssText; }
-    body.append(statusEl, row, row2, filtersTitle, open24, list);
+    const nameBox = document.createElement("input");
+    nameBox.type = "search";
+    nameBox.placeholder = "Search by name";
+    nameBox.className = pad.className;
+    nameBox.style.cssText = pad.style.cssText;
+    nameBox.style.width = "100%";
+    nameBox.style.margin = "0 0 6px";
+    const searchIcon = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='M20 20l-4-4'/></svg>\")";
+    nameBox.style.cssText += `;height:40px;border-radius:4px;border:1px solid #b5b5b5;padding:0 12px 0 40px;color:#333;background:${searchIcon} #fff no-repeat 12px center / 20px;`;
+    let nameTimer;
+    nameBox.addEventListener("input", () => {
+      clearTimeout(nameTimer);
+      nameTimer = setTimeout(() => { state.nameQuery = nameBox.value.trim().toLowerCase(); renderMarkers(); }, 250);
+    });
+    body.append(statusEl, row, row2, filtersTitle, nameBox, open24, list);
 
-    panel.append(sep, header, body);
+    panel.append(header, body);
   }
 
   // Class names are hashed (e.g. _PlannerSidebar_1lgsb_153), so match on the stable prefix.
