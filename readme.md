@@ -7,4 +7,4 @@ Supported route planners:
 - Garmin connect
 - Trailmap
 
-For instlalation see [chrome web store](https://chromewebstore.google.com/detail/randoshopper/jceclmbgopmhhcffenhnppeldiohbdpp).
+For installation see [chrome web store](https://chromewebstore.google.com/detail/randoshopper/jceclmbgopmhhcffenhnppeldiohbdpp).
