@@ -627,9 +627,15 @@
       if (state.items.length) clearResults();
       return;
     }
-    if (!state.map || !state.map.getStyle) {
+    const mapDead = state.map && (!state.map.getStyle || !(() => {
+      try {
+        const c = state.map.getCanvasContainer ? state.map.getCanvasContainer() : state.map.getContainer();
+        return c && c.isConnected;
+      } catch (_) { return false; }
+    })());
+    if (!state.map || mapDead) {
       state.map = findMap();
-      if (state.map) {  ensureOverlay(); renderMarkers(); }
+      if (state.map) { overlay = null; ensureOverlay(); renderMarkers(); }
     } else if (overlay && !overlay.isConnected) {
       overlay = null;
       ensureOverlay();
