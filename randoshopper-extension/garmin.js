@@ -353,7 +353,7 @@
       const key = `${f.properties?.osm_id}|${cat.id}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      items.push({ cat, pos, tags });
+      items.push({ cat, pos, tags, id: f.properties?.osm_id, geometry: f.geometry });
     }
     return items;
   }
@@ -424,6 +424,8 @@
     if (site) links.push(`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Website</a>`);
     const gmaps = `https://www.google.com/maps/search/?api=1&query=${item.pos[1]},${item.pos[0]}`;
     links.push(`<a href="${gmaps}" target="_blank" rel="noopener noreferrer">Google Maps</a>`);
+        const osmType = { Point: "node", MultiPolygon: "way", Polygon: "way", LineString: "way" }[item.geometry?.type];
+    if (item.id && osmType) links.push(`<a href="https://www.openstreetmap.org/${osmType}/${item.id}" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>`);
     html += `<div style="margin-top:8px"><b>More information</b></div><div class="rs-links" style="display:flex;flex-direction:column;gap:2px;">${links.join("")}</div>`;
     popup.innerHTML = html;
     popup.style.paddingRight = "22px";
