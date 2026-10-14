@@ -33,6 +33,9 @@
 
   const state = {
     map: null,
+    mapKind: null, // "mapbox" | "google"
+    capturedMap: null,
+    capturedGoogleMap: null,
     route: null,
     routeSig: null,
     routeSource: null,
@@ -151,8 +154,11 @@
   }
 
   // Mapbox's Evented does `this._listeners = this._listeners || {}` in on(), so an
-  // inherited setter sees every evented object, including the map itself.
-  (function hookEventedCapture() {
+  // inherited setter sees every evented object, including the map itself. This trap is
+  // reinstalled whenever the captured map is discarded, since RWGPS can tear down and
+  // recreate a brand-new Mapbox instance (e.g. after switching to Google Maps and back).
+  function installEventedCaptureHook() {
+    if (Object.prototype.hasOwnProperty.call(Object.prototype, "_listeners")) return;
     Object.defineProperty(Object.prototype, "_listeners", {
       configurable: true,
       get() { return undefined; },
@@ -166,7 +172,8 @@
         } catch (_) { /* ignore */ }
       },
     });
-  })();
+  }
+  installEventedCaptureHook();
 
   // Mapbox GL binds its event handlers to the map instance in the constructor.
   (function hookMapCapture() {
@@ -212,10 +219,229 @@
     return null;
   }
 
-  function findMap() {
-    if (state.capturedMap) return state.capturedMap;
-    if (document.querySelector(".mapboxgl-map, .maplibregl-map")) return scanForMap();
+  function detectActiveEngine() {
+    const mb = document.querySelector(".mapboxgl-map, .maplibregl-map");
+    const gm = document.querySelector(".gm-style");
+    const visible = (el) => !!(el && el.getClientRects().length);
+    if (visible(mb)) return "mapbox";
+    if (visible(gm)) return "google";
+    if (mb) return "mapbox";
+    if (gm) return "google";
     return null;
+  }
+
+  function findMap() {
+    const activeEngine = detectActiveEngine();
+    const capturedMapAlive = () => {
+      try { return !!(state.capturedMap && state.capturedMap.getContainer && state.capturedMap.getContainer().isConnected); }
+      catch (_) { return false; }
+    };
+    if (activeEngine !== "google") {
+      if (state.capturedMap) {
+        if (capturedMapAlive()) { state.mapKind = "mapbox"; return state.capturedMap; }
+        state.capturedMap = null;
+        installEventedCaptureHook();
+      }
+      if (document.querySelector(".mapboxgl-map, .maplibregl-map")) {
+        const m = scanForMap();
+        if (m) { state.mapKind = "mapbox"; return m; }
+      }
+    }
+    if (state.capturedGoogleMap) {
+      try {
+        if (isGoogleMap(state.capturedGoogleMap) && state.capturedGoogleMap.getDiv()?.isConnected) {
+          state.mapKind = "google";
+          return state.capturedGoogleMap;
+        }
+      } catch (_) { /* ignore */ }
+    }
+    if (activeEngine === "google") return null;
+    if (state.capturedMap && capturedMapAlive()) { state.mapKind = "mapbox"; return state.capturedMap; }
+    return null;
+  }
+
+  // ---------- Google Maps engine support (RWGPS can switch its map provider to Google Maps) ----------
+  const isGoogleMap = (o) =>
+    o && typeof o === "object" && typeof o.getDiv === "function" && typeof o.getProjection === "function" &&
+    typeof o.getZoom === "function" && typeof o.addListener === "function" && typeof o.panTo === "function";
+
+  const googlePolylines = new Set();
+  let googleDataCoords = null;
+  Object.defineProperty(state, "debugGooglePolylines", {
+    get() {
+      return Array.from(googlePolylines).map((pl) => {
+        let len = -1, hasMap = false, sameMap = false;
+        try { len = pl.getPath().getLength(); } catch (_) { /* ignore */ }
+        try { hasMap = !!pl.getMap(); } catch (_) { /* ignore */ }
+        try { sameMap = pl.getMap() === state.map; } catch (_) { /* ignore */ }
+        return { len, hasMap, sameMap };
+      });
+    },
+  });
+  Object.defineProperty(state, "debugGoogleDataCoords", {
+    get() { return googleDataCoords ? googleDataCoords.length : 0; },
+  });
+
+  function patchGoogleMapsClasses(gmaps) {
+    if (!gmaps || typeof gmaps !== "object") return;
+    if (gmaps.Map && !gmaps.Map.prototype.__rsHooked) {
+      const origAddListener = gmaps.Map.prototype.addListener;
+      gmaps.Map.prototype.addListener = function (...args) {
+        if (!state.capturedGoogleMap && isGoogleMap(this)) state.capturedGoogleMap = this;
+        return origAddListener.apply(this, args);
+      };
+      gmaps.Map.prototype.__rsHooked = true;
+    }
+    if (gmaps.Polyline && !gmaps.Polyline.prototype.__rsHooked) {
+      const origSetMap = gmaps.Polyline.prototype.setMap;
+      gmaps.Polyline.prototype.setMap = function (map) {
+        if (map) googlePolylines.add(this); else googlePolylines.delete(this);
+        return origSetMap.call(this, map);
+      };
+      const origSetPath = gmaps.Polyline.prototype.setPath;
+      gmaps.Polyline.prototype.setPath = function (...args) {
+        googlePolylines.add(this);
+        return origSetPath.apply(this, args);
+      };
+      gmaps.Polyline.prototype.__rsHooked = true;
+    }
+    if (gmaps.Data && !gmaps.Data.prototype.__rsHooked) {
+      const origAddGeoJson = gmaps.Data.prototype.addGeoJson;
+      gmaps.Data.prototype.addGeoJson = function (geojson, opts) {
+        try {
+          const coords = geojsonLine(geojson);
+          if (coords.length > 1 && (!googleDataCoords || coords.length > googleDataCoords.length)) googleDataCoords = coords;
+        } catch (_) { /* ignore */ }
+        return origAddGeoJson.call(this, geojson, opts);
+      };
+      const origAdd = gmaps.Data.prototype.add;
+      gmaps.Data.prototype.add = function (feature) {
+        try {
+          const geom = feature && typeof feature.getGeometry === "function" && feature.getGeometry();
+          const type = geom && typeof geom.getType === "function" && geom.getType();
+          if (type === "LineString" || type === "MultiLineString") {
+            const coords = [];
+            const lines = type === "LineString" ? [geom.getArray()] : geom.getArray().map((l) => l.getArray());
+            lines.forEach((arr) => arr.forEach((ll) => coords.push([ll.lng(), ll.lat()])));
+            if (coords.length > 1 && (!googleDataCoords || coords.length > googleDataCoords.length)) googleDataCoords = coords;
+          }
+        } catch (_) { /* ignore */ }
+        return origAdd.call(this, feature);
+      };
+      gmaps.Data.prototype.__rsHooked = true;
+    }
+  }
+
+  // Patch google.maps classes the instant the namespace is assigned, instead of polling,
+  // since the page may create its Map/Polyline synchronously right after assignment.
+  (function hookGoogleMapsApi() {
+    const watchMapsNamespace = (g) => {
+      if (!g || g.__rsMapsWatched) return;
+      g.__rsMapsWatched = true;
+      let _maps = g.maps;
+      if (_maps) patchGoogleMapsClasses(_maps);
+      try {
+        Object.defineProperty(g, "maps", {
+          configurable: true,
+          get() { return _maps; },
+          set(v) { _maps = v; try { patchGoogleMapsClasses(v); } catch (_) { /* ignore */ } },
+        });
+      } catch (_) { /* ignore */ }
+    };
+    let _google = window.google;
+    if (_google) watchMapsNamespace(_google);
+    try {
+      Object.defineProperty(window, "google", {
+        configurable: true,
+        get() { return _google; },
+        set(v) { _google = v; try { watchMapsNamespace(v); } catch (_) { /* ignore */ } },
+      });
+    } catch (_) { /* ignore */ }
+    // Fallback in case the define-property hooks above can't apply (e.g. already non-configurable).
+    let tries = 0;
+    const poll = () => {
+      tries++;
+      try { if (window.google && window.google.maps) patchGoogleMapsClasses(window.google.maps); } catch (_) { /* ignore */ }
+      if (tries < 400) setTimeout(poll, 250);
+    };
+    poll();
+  })();
+
+  // Reads the Google Map's live Data layer directly instead of relying on intercepted
+  // addGeoJson/add calls, avoiding any race between hook installation and page code.
+  function scanGoogleMapData() {
+    try {
+      const data = state.map && state.map.data;
+      if (!data || typeof data.forEach !== "function") return null;
+      const coords = [];
+      data.forEach((feature) => {
+        try {
+          const geom = feature.getGeometry();
+          const type = geom && typeof geom.getType === "function" && geom.getType();
+          if (type === "LineString") {
+            geom.getArray().forEach((ll) => coords.push([ll.lng(), ll.lat()]));
+          } else if (type === "MultiLineString") {
+            geom.getArray().forEach((line) => line.getArray().forEach((ll) => coords.push([ll.lng(), ll.lat()])));
+          }
+        } catch (_) { /* ignore */ }
+      });
+      return coords.length > 1 ? coords : null;
+    } catch (_) { return null; }
+  }
+
+  function routeFromGoogleMap() {
+    // RWGPS's Google engine draws the route as many separate Polyline segments (e.g. one
+    // pair per surface-colored stretch: a casing underneath and a highlight on top), not
+    // one single continuous line. Picking only the longest one used to drop most of the
+    // route. Collect every distinct segment attached to the current map instead.
+    const segments = [];
+    const seenKeys = new Set();
+    for (const pl of googlePolylines) {
+      try {
+        if (pl.getMap() !== state.map) continue;
+        const path = pl.getPath();
+        if (!path || path.getLength() < 2) continue;
+        const coords = [];
+        path.forEach((ll) => coords.push([ll.lng(), ll.lat()]));
+        // Dedupe visually-identical overlay pairs (same length + same endpoints almost
+        // certainly means the same path drawn twice, e.g. casing + highlight).
+        const key = coords.length + "|" + coords[0].join(",") + "|" + coords[coords.length - 1].join(",");
+        if (seenKeys.has(key)) continue;
+        seenKeys.add(key);
+        segments.push(coords);
+      } catch (_) { /* ignore */ }
+    }
+    const scanned = scanGoogleMapData();
+    if (scanned) segments.push(scanned);
+    if (googleDataCoords && googleDataCoords.length > 1) segments.push(googleDataCoords);
+    if (!segments.length) return null;
+    const coords = [].concat(...segments);
+    return { coords, segments, layer: "google-polyline" };
+  }
+
+  function mapContainer() {
+    if (!state.map) return null;
+    if (state.mapKind === "google") { try { return state.map.getDiv(); } catch (_) { return null; } }
+    try { return state.map.getCanvasContainer ? state.map.getCanvasContainer() : state.map.getContainer(); } catch (_) { return null; }
+  }
+
+  function googleProject([lng, lat]) {
+    try {
+      const map = state.map;
+      const proj = map.getProjection();
+      const bounds = map.getBounds();
+      const zoom = map.getZoom();
+      if (!proj || !bounds || zoom === undefined) return { x: 0, y: 0 };
+      const scale = Math.pow(2, zoom);
+      const nw = proj.fromLatLngToPoint(new google.maps.LatLng(bounds.getNorthEast().lat(), bounds.getSouthWest().lng()));
+      const pt = proj.fromLatLngToPoint(new google.maps.LatLng(lat, lng));
+      return { x: (pt.x - nw.x) * scale, y: (pt.y - nw.y) * scale };
+    } catch (_) { return { x: 0, y: 0 }; }
+  }
+
+  function mapProject(lngLat) {
+    if (state.mapKind === "google") return googleProject(lngLat);
+    return state.map.project(lngLat);
   }
 
 
@@ -237,6 +463,7 @@
   }
 
   function routeFromMap(map) {
+    if (state.mapKind === "google") return routeFromGoogleMap();
     let style;
     try { style = map.getStyle(); } catch (_) { return null; }
     if (!style) return null;
@@ -332,7 +559,6 @@
     if (state.map) {
       const r = routeFromMap(state.map);
       if (r) return r;
-      return null;
     }
     if (state.networkRoute) return { coords: state.networkRoute, layer: "network" };
     return null;
@@ -387,16 +613,33 @@
 
   async function search() {
     if (state.busy) { state.rerun = true; return; }
-    const r = currentRoute();
-    if (!r) { return; }
-    const route = dedupe(r.coords);
-    if (route.length < 2) { return; }
     state.busy = true; setSpin(true);
+    ensureMapAlive();
+    let r = currentRoute();
+    // Right after switching to Google Maps, RWGPS lazily loads the Google Maps API and
+    // attaches its route Polyline segments asynchronously; the map itself (and therefore
+    // state.mapKind) may not even be captured yet, so retry based on the DOM-detected
+    // engine rather than state.mapKind, and allow enough time for a cold API load.
+    for (let i = 0; i < 20 && detectActiveEngine() === "google" && (!r || dedupe(r.coords).length < 2); i++) {
+      await new Promise((res) => setTimeout(res, 300));
+      ensureMapAlive();
+      r = currentRoute();
+    }
+    if (!r) { state.busy = false; setSpin(false); if (state.rerun) { state.rerun = false; search(); } return; }
+    const route = dedupe(r.coords);
+    if (route.length < 2) { state.busy = false; setSpin(false); if (state.rerun) { state.rerun = false; search(); } return; }
     const sig = signature(route);
     try {
-      const simplified = simplify(route).map(([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)]);
+      const toLatLonPair = ([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)];
+      // Google's route segments aren't necessarily contiguous/ordered, so they're sent as
+      // a MultiLineString (each segment simplified independently) rather than being
+      // concatenated into one LineString, which would draw bogus straight jumps between them.
+      const segments = (r.segments || [route]).filter((s) => s.length > 1);
+      const geometry = segments.length > 1
+        ? { type: "MultiLineString", coordinates: segments.map((s) => simplify(dedupe(s)).map(toLatLonPair)) }
+        : { type: "LineString", coordinates: simplify(route).map(toLatLonPair) };
       const payload = {
-        route: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: simplified } },
+        route: { type: "Feature", properties: {}, geometry },
         searchAreaPadding: state.padding,
       };
       const data = await callBackend(payload);
@@ -418,14 +661,21 @@
 
   function ensureOverlay() {
     if (!state.map) return false;
-    const container = state.map.getCanvasContainer ? state.map.getCanvasContainer() : state.map.getContainer();
+    const container = mapContainer();
+    if (!container) return false;
     if (overlay && overlay.parentNode === container) return true;
     overlay = document.createElement("div");
     overlay.style.cssText = "position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;z-index:5;";
     container.appendChild(overlay);
-    state.map.on("move", positionMarkers);
-    state.map.on("resize", positionMarkers);
-    state.map.on("click", closePopup);
+    if (state.mapKind === "google") {
+      state.map.addListener("bounds_changed", positionMarkers);
+      state.map.addListener("zoom_changed", positionMarkers);
+      state.map.addListener("click", closePopup);
+    } else {
+      state.map.on("move", positionMarkers);
+      state.map.on("resize", positionMarkers);
+      state.map.on("click", closePopup);
+    }
     return true;
   }
 
@@ -490,11 +740,11 @@
   function positionMarkers() {
     if (!state.map || !overlay) return;
     for (const { el, item } of markerEls) {
-      const p = state.map.project(item.pos);
+      const p = mapProject(item.pos);
       el.style.transform = `translate(${p.x}px,${p.y}px)`;
     }
     if (popup) {
-      const p = state.map.project([+popup.dataset.lon, +popup.dataset.lat]);
+      const p = mapProject([+popup.dataset.lon, +popup.dataset.lat]);
       popup.style.left = "0";
       popup.style.top = "0";
       popup.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-130%)`;
@@ -675,12 +925,30 @@
     setStatus();
   }
 
-  function tick() {
-    const inPlanner = /\/routes\/(new|[^/]+\/edit)(\/|$)/.test(location.pathname);
-    mountPanel(inPlanner);
-    if (!state.map || !state.map.getStyle) {
+  // Re-finds the map if the currently held reference is dead (container detached, or the
+  // active map engine changed). Shared by the background tick loop and the manual search
+  // button, so pressing "Search route" always re-syncs against a stale/missing map first.
+  function ensureMapAlive() {
+    const engineNow = detectActiveEngine();
+    const containerOk = state.map && (() => {
+      try {
+        const c = mapContainer();
+        return !!(c && c.isConnected);
+      } catch (_) { return false; }
+    })();
+    const engineSwitched = state.map && state.mapKind && engineNow && engineNow !== state.mapKind;
+    const mapDead = state.map && (!containerOk || engineSwitched);
+    if (!state.map || mapDead) {
+      // Only discard the captured reference for the engine that actually died; RWGPS may
+      // keep both map engines mounted (just hidden) when switching providers, so the other
+      // engine's captured map is still valid and should be reused without rediscovery.
+      if (mapDead && !containerOk) {
+        if (state.mapKind === "mapbox") { state.capturedMap = null; installEventedCaptureHook(); }
+        else if (state.mapKind === "google") state.capturedGoogleMap = null;
+      }
       state.map = findMap();
       if (state.map) {
+        overlay = null;
         ensureOverlay();
         renderMarkers();
       }
@@ -689,6 +957,12 @@
       ensureOverlay();
       renderMarkers();
     }
+  }
+
+  function tick() {
+    const inPlanner = /\/routes\/(new|[^/]+\/edit)(\/|$)/.test(location.pathname);
+    mountPanel(inPlanner);
+    ensureMapAlive();
     if (!inPlanner) {
       if (state.items.length) clearResults();
       return;
