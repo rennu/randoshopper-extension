@@ -47,6 +47,7 @@
     nameQuery: "",
     lastSearchedSig: null,
     debounce: null,
+    debugLines: false,
   };
   window.randoshopper = state;
 
@@ -227,13 +228,80 @@
     else if (geom.type === "GeometryCollection") geom.geometries.forEach((g) => lineCoords(g, out));
   }
 
-  function geojsonLine(data) {
+  function geojsonLine(data, pred) {
     const out = [];
     if (!data || typeof data !== "object") return out;
-    if (data.type === "FeatureCollection") data.features.forEach((f) => lineCoords(f.geometry, out));
-    else if (data.type === "Feature") lineCoords(data.geometry, out);
+    if (data.type === "FeatureCollection") data.features.forEach((f) => { if (!pred || pred(f)) lineCoords(f.geometry, out); });
+    else if (data.type === "Feature") { if (!pred || pred(data)) lineCoords(data.geometry, out); }
     else lineCoords(data, out);
     return out.map((c) => [c[0], c[1]]);
+  }
+
+  // Like lineCoords(), but keeps each LineString part of a MultiLineString as its own
+  // separate segment instead of concatenating them. A route's geometry can be split into
+  // several genuinely disjoint pieces (e.g. an out-and-back with a gap, or ferry legs);
+  // concatenating them end-to-end creates a fake straight "teleport" line between the end
+  // of one piece and the start of the next, both visually (debug overlay) and in searches.
+  function lineSegments(geom, out) {
+    if (!geom) return;
+    if (geom.type === "LineString") { if (geom.coordinates.length > 1) out.push(geom.coordinates.map((c) => [c[0], c[1]])); }
+    else if (geom.type === "MultiLineString") geom.coordinates.forEach((l) => { if (l.length > 1) out.push(l.map((c) => [c[0], c[1]])); });
+    else if (geom.type === "GeometryCollection") geom.geometries.forEach((g) => lineSegments(g, out));
+  }
+  function geojsonSegments(data, pred) {
+    const out = [];
+    if (!data || typeof data !== "object") return out;
+    if (data.type === "FeatureCollection") data.features.forEach((f) => { if (!pred || pred(f)) lineSegments(f.geometry, out); });
+    else if (data.type === "Feature") { if (!pred || pred(data)) lineSegments(data.geometry, out); }
+    else lineSegments(data, out);
+    return out;
+  }
+
+  // Minimal evaluator for mapbox/maplibre style layer filters (legacy array form and the
+  // common subset of the expression form), so features hidden by a layer's `filter`
+  // (e.g. "only show the selected route id out of several in one source") are excluded
+  // even though the raw GeoJSON source still contains them.
+  function filterFieldRef(props, operand) {
+    if (Array.isArray(operand) && operand[0] === "get") return props[operand[1]];
+    if (typeof operand === "string") return props[operand];
+    return undefined;
+  }
+  function filterLiteral(operand) {
+    if (Array.isArray(operand) && operand[0] === "literal") return operand[1];
+    return operand;
+  }
+  function evalFilterExpr(expr, props) {
+    if (!Array.isArray(expr) || !expr.length) return true;
+    const op = expr[0];
+    switch (op) {
+      case "all": return expr.slice(1).every((e) => evalFilterExpr(e, props));
+      case "any": return expr.slice(1).some((e) => evalFilterExpr(e, props));
+      case "none": return expr.slice(1).every((e) => !evalFilterExpr(e, props));
+      case "has": return Array.isArray(expr[1]) && expr[1][0] === "get" ? expr[1][1] in props : expr[1] in props;
+      case "!has": return !evalFilterExpr(["has", expr[1]], props);
+      case "==": return filterFieldRef(props, expr[1]) === filterLiteral(expr[2]);
+      case "!=": return filterFieldRef(props, expr[1]) !== filterLiteral(expr[2]);
+      case ">": return filterFieldRef(props, expr[1]) > filterLiteral(expr[2]);
+      case ">=": return filterFieldRef(props, expr[1]) >= filterLiteral(expr[2]);
+      case "<": return filterFieldRef(props, expr[1]) < filterLiteral(expr[2]);
+      case "<=": return filterFieldRef(props, expr[1]) <= filterLiteral(expr[2]);
+      case "in": {
+        const v = filterFieldRef(props, expr[1]);
+        const rest = expr.slice(2);
+        const vals = rest.length === 1 && Array.isArray(rest[0]) && rest[0][0] === "literal" ? rest[0][1] : rest.map(filterLiteral);
+        return Array.isArray(vals) && vals.includes(v);
+      }
+      case "!in": return !evalFilterExpr(["in", expr[1], ...expr.slice(2)], props);
+      default: return true; // unrecognized operator: fail open rather than wrongly dropping real route points
+    }
+  }
+  function layerFilterPredicate(map, layerId) {
+    let filter;
+    try { filter = map.getFilter(layerId); } catch (_) { filter = null; }
+    if (!filter) return null;
+    return (feature) => {
+      try { return evalFilterExpr(filter, (feature && feature.properties) || {}); } catch (_) { return true; }
+    };
   }
 
   function routeFromMap(map) {
@@ -241,7 +309,12 @@
     try { style = map.getStyle(); } catch (_) { return null; }
     if (!style) return null;
     const re = /route|track|plan|line/i;
-    const reSkip = /record|completed|highlight|hover|poi|label|arrow|cap|casing|outline|halo|heatmap|segment|waypoint|cue/i;
+    // RWGPS splits a route's geometry by surface type across several sibling layers
+    // (`..._paved`/`_unpaved`/`_unknown`), each only a fragment of the full route.
+    // Flattening a fragment's MultiLineString parts creates long straight "teleport"
+    // lines between unrelated disjoint pieces, so these are never legitimate candidates
+    // — the matching `..._target` layer already carries the complete, unsegmented route.
+    const reSkip = /record|completed|highlight|hover|poi|label|arrow|cap|casing|outline|halo|heatmap|segment|waypoint|cue|_(paved|unpaved|unknown)$/i;
     let best = null;
     for (const layer of style.layers || []) {
       if (layer.type !== "line" || !layer.source) continue;
@@ -251,17 +324,19 @@
       if (!src || src.type !== "geojson") continue; // basemap vector layers are never the route
       let data = src._data;
       if (!data && typeof src.serialize === "function") data = src.serialize().data;
-      let coords = data && typeof data === "object" ? geojsonLine(data) : [];
-      if (!coords.length) {
+      const pred = layerFilterPredicate(map, layer.id);
+      let segments = data && typeof data === "object" ? geojsonSegments(data, pred) : [];
+      if (!segments.length) {
         try {
           const feats = map.querySourceFeatures(layer.source);
           const out = [];
-          feats.forEach((f) => lineCoords(f.geometry, out));
-          coords = out.map((c) => [c[0], c[1]]);
+          feats.forEach((f) => { if (!pred || pred(f)) lineSegments(f.geometry, out); });
+          segments = out;
         } catch (_) { /* ignore */ }
       }
-      if (coords.length > 1 && (!best || coords.length > best.coords.length)) {
-        best = { coords, layer: layer.id };
+      const total = segments.reduce((s, seg) => s + seg.length, 0);
+      if (total > 1 && (!best || total > best.total)) {
+        best = { segments, total, layer: layer.id };
       }
     }
     return best;
@@ -334,7 +409,7 @@
       if (r) return r;
       return null;
     }
-    if (state.networkRoute) return { coords: state.networkRoute, layer: "network" };
+    if (state.networkRoute) return { segments: [state.networkRoute], layer: "network" };
     return null;
   }
 
@@ -385,22 +460,47 @@
     return items;
   }
 
+  function mergeItems(itemArrays) {
+    const merged = [];
+    const seen = new Set();
+    for (const items of itemArrays) {
+      for (const item of items) {
+        const key = `${item.id}|${item.cat.id}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        merged.push(item);
+      }
+    }
+    return merged;
+  }
+
   async function search() {
     if (state.busy) { state.rerun = true; return; }
     const r = currentRoute();
     if (!r) { return; }
-    const route = dedupe(r.coords);
-    if (route.length < 2) { return; }
+    // The backend only accepts a single LineString per request (a MultiLineString request
+    // returns 501), and a route's geometry can be split into genuinely disjoint pieces
+    // (see lineSegments()). So each disjoint segment is searched with its own request and
+    // the results are merged, instead of bridging them with a fake straight line.
+    const segs = r.segments.map((seg) => dedupe(seg)).filter((seg) => seg.length >= 2);
+    if (!segs.length) { return; }
+    const flat = segs.flat();
     state.busy = true; setSpin(true);
-    const sig = signature(route);
+    const sig = signature(flat);
     try {
-      const simplified = simplify(route).map(([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)]);
-      const payload = {
-        route: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: simplified } },
-        searchAreaPadding: state.padding,
-      };
-      const data = await callBackend(payload);
-      state.items = toItems(data);
+      const results = await Promise.all(segs.map(async (seg) => {
+        const simplified = simplify(seg).map(([lon, lat]) => [+(PAYLOAD_LAT_FIRST ? lat : lon).toFixed(6), +(PAYLOAD_LAT_FIRST ? lon : lat).toFixed(6)]);
+        if (simplified.length < 2) return [];
+        const payload = {
+          route: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: simplified } },
+          searchAreaPadding: state.padding,
+        };
+        try {
+          const data = await callBackend(payload);
+          return toItems(data);
+        } catch (_) { return []; }
+      }));
+      state.items = mergeItems(results);
       state.lastSearchedSig = sig;
       setStatus();
       renderMarkers();
@@ -484,6 +584,7 @@
       markerEls.push({ el, item });
     }
     overlay.appendChild(frag);
+    if (debugSvg && debugSvg.parentNode !== overlay) renderDebugLines();
     positionMarkers();
   }
 
@@ -498,6 +599,120 @@
       popup.style.left = "0";
       popup.style.top = "0";
       popup.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-130%)`;
+    }
+    positionDebugLines();
+  }
+
+  // ---------- debug: show every candidate line layer the extension considers as the route ----------
+  const DEBUG_LINE_COLORS = ["#e74c3c", "#2d9cdb", "#27ae60", "#f2994a", "#9b51e0", "#16a085", "#f2c94c", "#bb6bd9"];
+  let debugSvg = null;
+  let debugPolys = [];
+
+  function collectAllLineCandidates(map) {
+    let style;
+    try { style = map.getStyle(); } catch (_) { return []; }
+    if (!style) return [];
+    const reSkip = /record|completed|highlight|hover|poi|label|arrow|cap|casing|outline|halo|heatmap|segment|waypoint|cue|_(paved|unpaved|unknown)$/i;
+    const out = [];
+    for (const layer of style.layers || []) {
+      if (layer.type !== "line" || !layer.source) continue;
+      if (reSkip.test(layer.id)) continue;
+      const src = map.getSource(layer.source);
+      if (!src || src.type !== "geojson") continue;
+      let data = src._data;
+      if (!data && typeof src.serialize === "function") data = src.serialize().data;
+      const pred = layerFilterPredicate(map, layer.id);
+      let segments = data && typeof data === "object" ? geojsonSegments(data, pred) : [];
+      if (!segments.length) {
+        try {
+          const feats = map.querySourceFeatures(layer.source);
+          const o = [];
+          feats.forEach((f) => { if (!pred || pred(f)) lineSegments(f.geometry, o); });
+          segments = o;
+        } catch (_) { /* ignore */ }
+      }
+      const total = segments.reduce((s, seg) => s + seg.length, 0);
+      if (total > 1) out.push({ segments, total, layer: layer.id, source: layer.source });
+    }
+    return out;
+  }
+
+  // Dumps enough info about a clicked debug line to write an exclude rule for it
+  // (id/source patterns, visibility/opacity, filter, point count, endpoints, bbox).
+  function describeDebugCandidate(map, c, seg, segIdx) {
+    let visibility, opacity, filter;
+    try { visibility = map.getLayoutProperty(c.layer, "visibility") ?? "visible"; } catch (_) { /* ignore */ }
+    try { opacity = map.getPaintProperty(c.layer, "line-opacity"); } catch (_) { /* ignore */ }
+    try { filter = map.getFilter(c.layer); } catch (_) { /* ignore */ }
+    const lons = seg.map((p) => p[0]);
+    const lats = seg.map((p) => p[1]);
+    return {
+      layer: c.layer,
+      source: c.source,
+      segment: `${segIdx + 1}/${c.segments.length}`,
+      visibility,
+      opacity,
+      filter,
+      points: seg.length,
+      first: seg[0],
+      last: seg[seg.length - 1],
+      bbox: [Math.min(...lons), Math.min(...lats), Math.max(...lons), Math.max(...lats)],
+    };
+  }
+
+  function renderDebugLines() {
+    if (debugSvg) { debugSvg.remove(); debugSvg = null; }
+    debugPolys = [];
+    if (!state.debugLines || !state.map || !ensureOverlay()) return;
+    const candidates = collectAllLineCandidates(state.map);
+    debugSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    debugSvg.style.cssText = "position:absolute;left:0;top:0;overflow:visible;pointer-events:none;";
+    overlay.appendChild(debugSvg);
+    candidates.forEach((c, i) => {
+      const color = DEBUG_LINE_COLORS[i % DEBUG_LINE_COLORS.length];
+      c.segments.forEach((seg, segIdx) => {
+        const poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        const halo = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        halo.setAttribute("fill", "none");
+        halo.setAttribute("stroke", "#ffffff");
+        halo.setAttribute("stroke-width", "11");
+        halo.setAttribute("stroke-opacity", "0.9");
+        halo.setAttribute("stroke-linecap", "round");
+        halo.setAttribute("stroke-linejoin", "round");
+        halo.style.pointerEvents = "stroke";
+        poly.setAttribute("fill", "none");
+        poly.setAttribute("stroke", color);
+        poly.setAttribute("stroke-width", "7");
+        poly.setAttribute("stroke-opacity", "1");
+        poly.setAttribute("stroke-linecap", "round");
+        poly.setAttribute("stroke-linejoin", "round");
+        poly.setAttribute("stroke-dasharray", "4,8");
+        poly.style.cursor = "pointer";
+        poly.style.pointerEvents = "stroke";
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = `${c.layer} (source: ${c.source}, segment ${segIdx + 1}/${c.segments.length}, ${seg.length} pts) — click to log details`;
+        poly.appendChild(title);
+        const onClick = (ev) => {
+          ev.stopPropagation();
+          const info = describeDebugCandidate(state.map, c, seg, segIdx);
+          console.log("[randoshopper debug line]", JSON.stringify(info, null, 2));
+        };
+        poly.addEventListener("click", onClick);
+        halo.addEventListener("click", onClick);
+        debugSvg.appendChild(halo);
+        debugSvg.appendChild(poly);
+        debugPolys.push({ el: poly, halo, coords: seg });
+      });
+    });
+    positionDebugLines();
+  }
+
+  function positionDebugLines() {
+    if (!debugSvg || !state.map) return;
+    for (const { el, halo, coords } of debugPolys) {
+      const pts = coords.map((c) => { const p = state.map.project(c); return `${p.x},${p.y}`; }).join(" ");
+      el.setAttribute("points", pts);
+      halo.setAttribute("points", pts);
     }
   }
 
@@ -598,6 +813,19 @@
     auto.append(autoCb, " Auto-update when route changes");
     row2.append(auto);
 
+    const debugRow = document.createElement("div");
+    debugRow.style.cssText = "margin-bottom:6px;display:none;"; // hidden for now; functionality kept for later use
+    const debugBtn = document.createElement("button");
+    debugBtn.textContent = state.debugLines ? "Hide debug lines" : "Debug lines";
+    debugBtn.title = "Toggle an overlay showing every line layer the extension considers as a possible route";
+    debugBtn.style.cssText = "box-sizing:border-box;height:28px;padding:0 10px;font:inherit;font-size:12px;color:#666;background:#f5f5f5;border:1px solid #ccc;border-radius:4px;cursor:pointer;";
+    debugBtn.addEventListener("click", () => {
+      state.debugLines = !state.debugLines;
+      debugBtn.textContent = state.debugLines ? "Hide debug lines" : "Debug lines";
+      renderDebugLines();
+    });
+    debugRow.append(debugBtn);
+
     const filtersTitle = document.createElement("div");
     filtersTitle.textContent = "Filters";
     filtersTitle.style.cssText = "font-weight:500;font-size:14px;margin:8px 0 4px;";
@@ -642,7 +870,7 @@
       clearTimeout(nameTimer);
       nameTimer = setTimeout(() => { state.nameQuery = nameBox.value.trim().toLowerCase(); renderMarkers(); }, 250);
     });
-    body.append(statusEl, row, row2, filtersTitle, nameBox, open24, list);
+    body.append(statusEl, row, row2, debugRow, filtersTitle, nameBox, open24, list);
 
     panel.append(header, body);
   }
@@ -694,14 +922,16 @@
       return;
     }
     const r = currentRoute();
-    if (!r || dedupe(r.coords).length < 2) {
+    const segs = r ? r.segments.map((seg) => dedupe(seg)).filter((seg) => seg.length >= 2) : [];
+    const flat = segs.flat();
+    if (!r || flat.length < 2) {
       if (state.items.length || state.routeSig) clearResults();
       return;
     }
-    const sig = signature(dedupe(r.coords));
+    const sig = signature(flat);
     if (sig !== state.routeSig) {
       state.routeSig = sig;
-      state.route = r.coords;
+      state.route = flat;
       if (state.auto) {
         clearTimeout(state.debounce);
         state.debounce = setTimeout(() => { if (state.routeSig !== state.lastSearchedSig) search(); }, 1500);
@@ -709,5 +939,6 @@
       }
     }
   }
+
   setInterval(tick, 1500);
 })();
