@@ -151,6 +151,32 @@
     } catch (_) { return false; }
   }
 
+  // RWGPS is a single-page app. The page you come from (dashboard, route view) has its
+  // own map, which is thrown away when the planner creates a new one. So we remember
+  // every map that gets created and pick the right one later in findMap().
+  const knownMaps = new Set();
+
+  function noteMap(obj) {
+    if (knownMaps.has(obj)) return;
+    if (isRealMap(obj)) knownMaps.add(obj);
+  }
+
+  // A map is alive while it is not removed and its container is still in the page.
+  function isMapAlive(map) {
+    try {
+      return !map._removed && map.getContainer().isConnected;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // Size of the map on screen in pixels (0 if hidden or dead).
+  function mapArea(map) {
+    if (!isMapAlive(map)) return 0;
+    const rect = map.getContainer().getBoundingClientRect();
+    return rect.width * rect.height;
+  }
+
   // Mapbox's Evented does `this._listeners = this._listeners || {}` in on(), so an
   // inherited setter sees every evented object, including the map itself.
   (function hookEventedCapture() {
@@ -159,12 +185,7 @@
       get() { return undefined; },
       set(v) {
         Object.defineProperty(this, "_listeners", { value: v, writable: true, configurable: true, enumerable: true });
-        try {
-          if (!state.capturedMap && isRealMap(this)) {
-            state.capturedMap = this;
-            delete Object.prototype._listeners;
-          }
-        } catch (_) { /* ignore */ }
+        noteMap(this);
       },
     });
   })();
@@ -173,11 +194,9 @@
   (function hookMapCapture() {
     const origBind = Function.prototype.bind;
     Function.prototype.bind = function (thisArg, ...rest) {
-      try {
-        if (!state.capturedMap && thisArg && typeof thisArg === "object" && isRealMap(thisArg)) {
-          state.capturedMap = thisArg;
-        }
-      } catch (_) { /* ignore */ }
+      if (thisArg && typeof thisArg === "object") {
+        noteMap(thisArg);
+      }
       return origBind.call(this, thisArg, ...rest);
     };
   })();
@@ -213,9 +232,31 @@
     return null;
   }
 
+  // Returns the biggest visible map on the page.
   function findMap() {
-    if (state.capturedMap) return state.capturedMap;
-    if (document.querySelector(".mapboxgl-map, .maplibregl-map")) return scanForMap();
+    // Forget maps that have been removed from the page.
+    for (const map of knownMaps) {
+      if (!isMapAlive(map)) knownMaps.delete(map);
+    }
+
+    let best = null;
+    let bestArea = 0;
+    for (const map of knownMaps) {
+      const area = mapArea(map);
+      if (area > bestArea) {
+        best = map;
+        bestArea = area;
+      }
+    }
+    if (best) return best;
+
+    // The hooks did not catch any map: search for one instead.
+    if (!document.querySelector(".mapboxgl-map, .maplibregl-map")) return null;
+    const scanned = scanForMap();
+    if (scanned && mapArea(scanned) > 0) {
+      knownMaps.add(scanned);
+      return scanned;
+    }
     return null;
   }
 
@@ -304,6 +345,29 @@
     };
   }
 
+  // Returns the GeoJSON object of a map source, or null.
+  // Mapbox/MapLibre versions store it in different places:
+  //   src._data              -> the GeoJSON itself
+  //   src._data.geojson      -> newer MapLibre wraps it
+  //   src.serialize().data   -> public fallback
+  function unwrapGeojson(value) {
+    if (!value || typeof value !== "object") return null;
+    if (value.type) return value;
+    if (value.geojson && typeof value.geojson === "object") return value.geojson;
+    return null;
+  }
+
+  function sourceData(src) {
+    const data = unwrapGeojson(src._data);
+    if (data) return data;
+    if (typeof src.serialize !== "function") return null;
+    try {
+      return unwrapGeojson(src.serialize().data);
+    } catch (_) {
+      return null;
+    }
+  }
+
   function routeFromMap(map) {
     let style;
     try { style = map.getStyle(); } catch (_) { return null; }
@@ -322,10 +386,9 @@
       const nameMatch = re.test(layer.id) || re.test(layer.source);
       const src = map.getSource(layer.source);
       if (!src || src.type !== "geojson") continue; // basemap vector layers are never the route
-      let data = src._data;
-      if (!data && typeof src.serialize === "function") data = src.serialize().data;
+      const data = sourceData(src);
       const pred = layerFilterPredicate(map, layer.id);
-      let segments = data && typeof data === "object" ? geojsonSegments(data, pred) : [];
+      let segments = data ? geojsonSegments(data, pred) : [];
       if (!segments.length) {
         try {
           const feats = map.querySourceFeatures(layer.source);
@@ -477,7 +540,10 @@
   async function search() {
     if (state.busy) { state.rerun = true; return; }
     const r = currentRoute();
-    if (!r) { return; }
+    if (!r) {
+      showNoRouteStatus();
+      return;
+    }
     // The backend only accepts a single LineString per request (a MultiLineString request
     // returns 501), and a route's geometry can be split into genuinely disjoint pieces
     // (see lineSegments()). So each disjoint segment is searched with its own request and
@@ -619,10 +685,9 @@
       if (reSkip.test(layer.id)) continue;
       const src = map.getSource(layer.source);
       if (!src || src.type !== "geojson") continue;
-      let data = src._data;
-      if (!data && typeof src.serialize === "function") data = src.serialize().data;
+      const data = sourceData(src);
       const pred = layerFilterPredicate(map, layer.id);
-      let segments = data && typeof data === "object" ? geojsonSegments(data, pred) : [];
+      let segments = data ? geojsonSegments(data, pred) : [];
       if (!segments.length) {
         try {
           const feats = map.querySourceFeatures(layer.source);
@@ -727,6 +792,11 @@
       (document.head || document.documentElement).appendChild(st);
     }
     if (logoEl) logoEl.style.animation = on ? "rs-spin 1s linear infinite" : "";
+  }
+
+  function showNoRouteStatus() {
+    if (!statusEl) return;
+    statusEl.textContent = state.map ? "No route found on the map" : "Map not found yet";
   }
 
   function setStatus() { if (statusEl) statusEl.textContent = `${state.items.length} places found`; }
@@ -903,15 +973,25 @@
     setStatus();
   }
 
+  // Moves the markers from the old map (if any) to the new one.
+  function switchMap(map) {
+    closePopup();
+    if (overlay) {
+      overlay.remove();
+      overlay = null;
+    }
+    debugSvg = null;
+    state.map = map;
+    state.routeSig = null;
+    if (map) renderMarkers();
+  }
+
   function tick() {
     const inPlanner = /\/routes\/(new|[^/]+\/edit)(\/|$)/.test(location.pathname);
     mountPanel(inPlanner);
-    if (!state.map || !state.map.getStyle) {
-      state.map = findMap();
-      if (state.map) {
-        ensureOverlay();
-        renderMarkers();
-      }
+    const map = findMap();
+    if (map !== state.map) {
+      switchMap(map);
     } else if (overlay && !overlay.isConnected) {
       overlay = null;
       ensureOverlay();
