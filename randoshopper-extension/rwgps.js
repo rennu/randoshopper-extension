@@ -48,6 +48,7 @@
     lastSearchedSig: null,
     debounce: null,
     debugLines: false,
+    routeSegments: null,
   };
   window.randoshopper = state;
 
@@ -585,6 +586,7 @@
     }
     overlay.appendChild(frag);
     if (debugSvg && debugSvg.parentNode !== overlay) renderDebugLines();
+    if (searchAreaSvg && searchAreaSvg.parentNode !== overlay) renderSearchArea();
     positionMarkers();
   }
 
@@ -601,6 +603,7 @@
       popup.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-130%)`;
     }
     positionDebugLines();
+    positionSearchArea();
   }
 
   // ---------- debug: show every candidate line layer the extension considers as the route ----------
@@ -716,6 +719,60 @@
     }
   }
 
+  // ---------- search area overlay: approximate buffer corridor around the route ----------
+  let searchAreaSvg = null;
+  let searchAreaPolys = []; // [{ el, ring }]
+
+  // Converts route `segments` ([lon,lat] arrays) into proper buffered polygon rings using turf.js'
+  // `buffer()` (backed by a JTS port), which offsets each line with rounded joins/caps and
+  // resolves self-intersections - unlike a naive per-vertex normal offset, this stays a clean,
+  // solid shape even at sharp turns/switchbacks. Buffering all segments together via a single
+  // MultiLineString lets turf merge overlapping/nearby segment buffers into one polygon.
+  function bufferToRings(segments, meters) {
+    if (!window.turf || !segments || !segments.length || !(meters > 0)) return [];
+    const valid = segments.filter((seg) => seg && seg.length >= 2);
+    if (!valid.length) return [];
+    try {
+      const geom = valid.length === 1 ? turf.lineString(valid[0]) : turf.multiLineString(valid);
+      const buffered = turf.buffer(geom, meters, { units: "meters", steps: 8 });
+      if (!buffered || !buffered.geometry) return [];
+      const g = buffered.geometry;
+      if (g.type === "Polygon") return [g.coordinates[0]];
+      if (g.type === "MultiPolygon") return g.coordinates.map((p) => p[0]);
+    } catch (_) { /* ignore, e.g. degenerate geometry */ }
+    return [];
+  }
+
+  function renderSearchArea() {
+    if (searchAreaSvg) { searchAreaSvg.remove(); searchAreaSvg = null; }
+    searchAreaPolys = [];
+    if (!state.map || !ensureOverlay() || !state.routeSegments || !state.routeSegments.length) return;
+    searchAreaSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    searchAreaSvg.style.cssText = "position:absolute;left:0;top:0;overflow:visible;pointer-events:none;";
+    searchAreaSvg.style.display = state.hidden ? "none" : "";
+    overlay.insertBefore(searchAreaSvg, overlay.firstChild);
+    for (const ring of bufferToRings(state.routeSegments, state.padding)) {
+      const poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      poly.setAttribute("fill", "#2d9cdb");
+      poly.setAttribute("fill-opacity", "0.12");
+      poly.setAttribute("stroke", "#2d9cdb");
+      poly.setAttribute("stroke-width", "1.5");
+      poly.setAttribute("stroke-opacity", "0.55");
+      poly.setAttribute("stroke-dasharray", "6,6");
+      searchAreaSvg.appendChild(poly);
+      searchAreaPolys.push({ el: poly, ring });
+    }
+    positionSearchArea();
+  }
+
+  function positionSearchArea() {
+    if (!searchAreaSvg || !state.map) return;
+    for (const { el, ring } of searchAreaPolys) {
+      const pts = ring.map((c) => { const p = state.map.project(c); return `${p.x},${p.y}`; }).join(" ");
+      el.setAttribute("points", pts);
+    }
+  }
+
   // ---------- panel ----------
   let panel, statusEl, countsEls = {};
   let logoEl = null;
@@ -788,6 +845,7 @@
         state.padding = v;
         state.items = [];
         renderMarkers();
+        renderSearchArea();
         renderPanelCounts();
         setStatus();
         search();
@@ -801,6 +859,7 @@
       state.hidden = !state.hidden;
       hideBtn.textContent = state.hidden ? "Show all" : "Hide all";
       renderMarkers();
+      if (searchAreaSvg) searchAreaSvg.style.display = state.hidden ? "none" : "";
     });
     row.append(btn, hideBtn, pad, m);
 
@@ -898,7 +957,9 @@
     state.items = [];
     state.networkRoute = null;
     state.routeSig = state.lastSearchedSig = null;
+    state.routeSegments = null;
     renderMarkers();
+    renderSearchArea();
     renderPanelCounts();
     setStatus();
   }
@@ -932,6 +993,8 @@
     if (sig !== state.routeSig) {
       state.routeSig = sig;
       state.route = flat;
+      state.routeSegments = segs;
+      renderSearchArea();
       if (state.auto) {
         clearTimeout(state.debounce);
         state.debounce = setTimeout(() => { if (state.routeSig !== state.lastSearchedSig) search(); }, 1500);

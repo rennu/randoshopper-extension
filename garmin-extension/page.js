@@ -49,6 +49,55 @@
     debounce: null,
   };
   window.randoshopper = state;
+  let searchAreaSvg = null;
+  let searchAreaPolys = []; // [{ el, ring }]
+
+  // Converts `coords` ([lon,lat] array) into a proper buffered polygon ring using turf.js'
+  // `buffer()` (backed by a JTS port), which offsets the line with rounded joins/caps and
+  // resolves self-intersections - unlike a naive per-vertex normal offset, this stays a clean,
+  // solid shape even at sharp turns/switchbacks. Returns one ring per polygon part.
+  function bufferToRings(coords, meters) {
+    if (!window.turf || !coords || coords.length < 2 || !(meters > 0)) return [];
+    try {
+      const line = turf.lineString(coords);
+      const buffered = turf.buffer(line, meters, { units: "meters", steps: 8 });
+      if (!buffered || !buffered.geometry) return [];
+      const geom = buffered.geometry;
+      if (geom.type === "Polygon") return [geom.coordinates[0]];
+      if (geom.type === "MultiPolygon") return geom.coordinates.map((p) => p[0]);
+    } catch (_) { /* ignore, e.g. degenerate geometry */ }
+    return [];
+  }
+
+  function renderSearchArea() {
+    if (searchAreaSvg) { searchAreaSvg.remove(); searchAreaSvg = null; }
+    searchAreaPolys = [];
+    if (!state.map || !ensureOverlay() || !state.route || state.route.length < 2) return;
+    searchAreaSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    searchAreaSvg.style.cssText = "position:absolute;left:0;top:0;overflow:visible;pointer-events:none;";
+    searchAreaSvg.style.display = state.hidden ? "none" : "";
+    overlay.insertBefore(searchAreaSvg, overlay.firstChild);
+    for (const ring of bufferToRings(state.route, state.padding)) {
+      const poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      poly.setAttribute("fill", "#2d9cdb");
+      poly.setAttribute("fill-opacity", "0.12");
+      poly.setAttribute("stroke", "#2d9cdb");
+      poly.setAttribute("stroke-width", "1.5");
+      poly.setAttribute("stroke-opacity", "0.55");
+      poly.setAttribute("stroke-dasharray", "6,6");
+      searchAreaSvg.appendChild(poly);
+      searchAreaPolys.push({ el: poly, ring });
+    }
+    positionSearchArea();
+  }
+
+  function positionSearchArea() {
+    if (!searchAreaSvg || !state.map) return;
+    for (const { el, ring } of searchAreaPolys) {
+      const pts = ring.map((c) => { const p = state.map.latLngToContainerPoint([c[1], c[0]]); return `${p.x},${p.y}`; }).join(" ");
+      el.setAttribute("points", pts);
+    }
+  }
 
   // ---------- geometry helpers ----------
   function simplify(route) {
@@ -462,6 +511,7 @@
       markerEls.push({ el, item });
     }
     overlay.appendChild(frag);
+    if (searchAreaSvg && searchAreaSvg.parentNode !== overlay) renderSearchArea();
     positionMarkers();
   }
 
@@ -477,6 +527,7 @@
       popup.style.top = "0";
       popup.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-130%)`;
     }
+    positionSearchArea();
   }
 
   // ---------- panel ----------
@@ -516,7 +567,7 @@
       logoEl = img; img.src = logoUrl; img.alt = ""; img.width = 22; img.height = 22;
       title.append(img);
     }
-    title.append("Garminshopper");
+    title.append("Randoshopper");
     header.appendChild(title);
     header.appendChild(arrow);
     const body = document.createElement("div");
@@ -551,6 +602,7 @@
         state.padding = v;
         state.items = [];
         renderMarkers();
+        renderSearchArea();
         renderPanelCounts();
         setStatus();
         search();
@@ -564,6 +616,7 @@
       state.hidden = !state.hidden;
       hideBtn.textContent = state.hidden ? "Show all" : "Hide all";
       renderMarkers();
+      if (searchAreaSvg) searchAreaSvg.style.display = state.hidden ? "none" : "";
     });
     row.append(btn, hideBtn, pad, m);
 
@@ -643,6 +696,7 @@
     state.networkRoute = null;
     state.routeSig = state.lastSearchedSig = null;
     renderMarkers();
+    renderSearchArea();
     renderPanelCounts();
     setStatus();
   }
@@ -673,6 +727,7 @@
     if (sig !== state.routeSig) {
       state.routeSig = sig;
       state.route = r.coords;
+      renderSearchArea();
       if (state.auto) {
         clearTimeout(state.debounce);
         state.debounce = setTimeout(() => { if (state.routeSig !== state.lastSearchedSig) search(); }, 1500);

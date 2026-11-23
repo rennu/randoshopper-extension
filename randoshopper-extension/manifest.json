@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Randoshopper",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",
@@ -28,25 +28,25 @@
   "content_scripts": [
     {
       "matches": ["https://www.komoot.com/*", "https://www.komoot.de/*"],
-      "js": ["komoot.js"],
+      "js": ["turf-bundle.js", "komoot.js"],
       "world": "MAIN",
       "run_at": "document_start"
     },
     {
       "matches": ["https://ridewithgps.com/*", "https://www.ridewithgps.com/*"],
-      "js": ["rwgps.js"],
+      "js": ["turf-bundle.js", "rwgps.js"],
       "world": "MAIN",
       "run_at": "document_start"
     },
     {
       "matches": ["https://connect.garmin.com/*"],
-      "js": ["garmin.js"],
+      "js": ["turf-bundle.js", "garmin.js"],
       "world": "MAIN",
       "run_at": "document_start"
     },
     {
       "matches": ["https://web.trailmap.fi/*"],
-      "js": ["trailmap.js"],
+      "js": ["turf-bundle.js", "trailmap.js"],
       "world": "MAIN",
       "run_at": "document_start"
     },
